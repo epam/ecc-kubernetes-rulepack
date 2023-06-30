@@ -1,0 +1,42 @@
+name: Changelog
+
+# Controls when the workflow will run
+on:
+  # Run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: 'write'
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Checkout action
+        run: git clone -b main "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
+        env:
+          PROJECT_TOKEN: ${{ secrets.ECC_CHANGELOG_ACTION }}
+
+      - name: Changelog
+        id: changelog
+        uses: ./ecc-actions/changelog-action
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
+          writeToFile: true
+          includeInvalidCommits: true
+          excludeTypes: ""
+
+      - name: Commit CHANGELOG.md
+        uses: ./ecc-actions/git-auto-commit-action
+        with:
+          branch: main
+          commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }}'
+          file_pattern: CHANGELOG.md
+          reverseOrder: true
+          excludeTypes: skip
