@@ -1,0 +1,19 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-028-apiserver_encryption_provider_config_argument_is_set
+    resource: k8s.pod
+    description: |
+      The --encryption-provider-config argument not configured for apiserver
+    filters:
+      - type: value
+        key: metadata.labels.component
+        value: kube-apiserver
+      - not:
+          - type: value
+            key: length(spec.containers[?contains(values(@), 'kube-apiserver')][].command[?starts_with(@, '--encryption-provider-config')][])
+            value: 1

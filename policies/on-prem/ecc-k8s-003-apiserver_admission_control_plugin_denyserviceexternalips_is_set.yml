@@ -1,0 +1,23 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-003-apiserver_admission_control_plugin_denyserviceexternalips_is_set
+    description: |
+      The admission control plugin DenyServiceExternalIPs is not set
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          metadata.namespace=='kube-system' && 
+          metadata.labels.component=='kube-apiserver' && 
+          contains(spec.containers[].command[],'kube-apiserver')
+        value: true
+      - type: value
+        key: |
+          (spec.containers[].command[?starts_with(@, '--disable-admission-plugins=')][]  | length([?contains(@, `DenyServiceExternalIPs`)])==`1`) || 
+          (spec.containers[].command[?starts_with(@, '--enable-admission-plugins=')][]  | length([?contains(@, `DenyServiceExternalIPs`)])==`0`)
+        value: true

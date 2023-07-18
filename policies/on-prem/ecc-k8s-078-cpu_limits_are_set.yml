@@ -1,0 +1,17 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-078-cpu_limits_are_set
+    description: |
+      CPU limits are not set for pods
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          (spec.containers!=`null` && length(spec.containers[?resources.limits.cpu==`null`])>=`1`) ||
+          (spec.init_containers!=`null` && length(spec.init_containers[?resources.limits.cpu==`null`])>=`1`)
+        value: true

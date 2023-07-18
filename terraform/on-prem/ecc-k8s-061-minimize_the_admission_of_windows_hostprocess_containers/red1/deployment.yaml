@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  deployment-061-red1
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      CustodianRule: ecc-k8s-061-minimize_the_admission_of_windows_hostprocess_cont
+      ComplianceStatus: Red1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        CustodianRule: ecc-k8s-061-minimize_the_admission_of_windows_hostprocess_cont
+        ComplianceStatus: Red1
+    spec:
+      hostNetwork: true
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: container-windows-server-iis-061-red1
+        image: mcr.microsoft.com/powershell:lts-nanoserver-1809
+        command:
+          - powershell.exe
+          - -command
+          - |
+              while ($true) { Start-Sleep -Seconds 2147483 }
+        securityContext:
+          windowsOptions:
+            hostProcess: true
+            runAsUserName: "NT AUTHORITY\\system"
+        ports:
+        - name: http
+          containerPort: 81
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: windows

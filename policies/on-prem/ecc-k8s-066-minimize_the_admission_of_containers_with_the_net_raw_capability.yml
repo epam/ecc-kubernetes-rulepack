@@ -1,0 +1,25 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-066-minimize_the_admission_of_containers_with_the_net_raw_capability
+    description: |
+      The NET_RAW capability is set for a pod
+    resource: k8s.pod
+    filters:
+      - or:
+          - type: value
+            key: spec.containers[*].security_context.capabilities.add[]
+            value: ["NET_RAW", "ALL"]
+            op: intersect
+          - type: value
+            key: spec.init_containers[*].security_context.capabilities.add[]
+            value: ["NET_RAW", "ALL"]
+            op: intersect
+          - type: value
+            key: spec.ephemeral_containers[*].security_context.capabilities.add[]
+            value: ["NET_RAW", "ALL"]
+            op: intersect

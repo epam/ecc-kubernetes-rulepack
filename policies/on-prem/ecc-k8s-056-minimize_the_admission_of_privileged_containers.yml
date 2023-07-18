@@ -1,0 +1,32 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-056-minimize_the_admission_of_privileged_containers
+    resource: k8s.pod
+    description: |
+      The securityContext.privileged flag is set to True for a pod
+    filters:
+      - not:
+          - type: value
+            key: metadata.namespace
+            value: kube-system
+      - or:
+          - type: value
+            key: spec.containers[].security_context.privileged
+            op: in
+            value_type: swap
+            value: true
+          - type: value
+            key: spec.init_containers[].security_context.privileged
+            op: in
+            value_type: swap
+            value: true
+          - type: value
+            key: spec.ephemeral_containers[].security_context.privileged
+            op: in
+            value_type: swap
+            value: true

@@ -1,0 +1,27 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-021-apiserver_request_timeout_argument_is_set_as_appropriate
+    resource: k8s.pod
+    description: |
+      The --request-timeout argument is not set as appropriate
+    filters:
+      - type: value
+        key: metadata.labels.component
+        value: kube-apiserver
+      - type: value
+        key: spec.containers[].command[]
+        op: in
+        value_type: swap
+        value: "kube-apiserver"
+      - not:
+          - type: value
+            key: spec.containers[].command[]
+            op: in
+            value_type: swap
+            value: "--request-timeout=300s"
+

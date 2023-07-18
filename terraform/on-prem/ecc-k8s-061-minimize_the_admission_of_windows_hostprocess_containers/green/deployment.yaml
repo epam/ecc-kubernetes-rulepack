@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  deployment-061-green
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      CustodianRule: ecc-k8s-061-minimize_the_admission_of_windows_hostprocess_cont
+      ComplianceStatus: Green
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        CustodianRule: ecc-k8s-061-minimize_the_admission_of_windows_hostprocess_cont
+        ComplianceStatus: Green
+    spec:
+      containers:
+      - name: container-windows-server-iis-061-green
+        image: mcr.microsoft.com/windows/servercore/iis
+        ports:
+        - name: http
+          containerPort: 80
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: windows

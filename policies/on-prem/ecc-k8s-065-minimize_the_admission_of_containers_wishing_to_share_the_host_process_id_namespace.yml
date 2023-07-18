@@ -1,0 +1,16 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-065-minimize_the_admission_of_containers_wishing_to_share_the_host_process_id_namespace
+    resource: k8s.pod
+    description: |
+      Pods hostPID flag is set to true
+    filters:
+      - type: value
+        key: spec.host_pid
+        value: true
+

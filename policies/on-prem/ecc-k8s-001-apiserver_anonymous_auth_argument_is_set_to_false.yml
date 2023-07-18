@@ -1,0 +1,31 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-001-apiserver_anonymous_auth_argument_is_set_to_false
+    description: |
+      The --anonymous-auth argument is set to true
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          metadata.namespace=='kube-system' && 
+          metadata.labels.component=='kube-apiserver' && 
+          contains(spec.containers[].command[],'kube-apiserver')
+        value: true
+      - or:
+          - type: value
+            key: spec.containers[].command[]
+            op: in
+            value_type: swap
+            value: "--anonymous-auth=true"
+          - not:
+              - type: value
+                key: spec.containers[].command[]
+                op: in
+                value_type: swap
+                value: "--anonymous-auth=false"
+

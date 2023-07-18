@@ -1,0 +1,10 @@
+**/.terraform/*
+*.terraform*
+*.tfstate
+*.tfstate.*
+tf_runner/*
+*.log
+*report.csv
+**/tmp
+/output
+/.idea

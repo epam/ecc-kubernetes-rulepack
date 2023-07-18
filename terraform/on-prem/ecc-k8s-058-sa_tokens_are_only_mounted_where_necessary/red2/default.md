@@ -1,0 +1,1 @@
+When deploying the infrastructure using the Minikube with version 1.25.3, it has Red infrastructure by default. 

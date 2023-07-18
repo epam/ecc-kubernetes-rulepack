@@ -1,0 +1,16 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-058-sa_tokens_are_only_mounted_where_necessary
+    resource: k8s.service-account
+    description: |
+      Service account tokens are mounted where not necessary for service accounts
+    filters:
+      - type: value
+        key: automount_service_account_token
+        value: false
+        op: ne

@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: custodian-role
+rules:
+- apiGroups: [""]
+  resources: ["pods","configmaps","serviceaccounts","namespaces", "secrets"]
+  verbs: ["list"]
+
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["roles","clusterroles"]
+  verbs: ["list"]
+
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["list"]

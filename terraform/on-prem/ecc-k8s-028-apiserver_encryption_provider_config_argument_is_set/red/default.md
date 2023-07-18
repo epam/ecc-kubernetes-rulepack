@@ -1,0 +1,1 @@
+When deploying cluster using Minikube/kubeadm/kind with version 1.24+, it has red configuration by default.

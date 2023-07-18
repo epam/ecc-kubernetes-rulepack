@@ -1,0 +1,21 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-004-apiserver_kubelet_client_certificate_and_kubelet_client_key_arguments_are_set
+    description: |
+      The --kubelet-client-certificate and --kubelet-client-key arguments are not set
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          metadata.namespace=='kube-system' && 
+          metadata.labels.component=='kube-apiserver' && 
+          contains(spec.containers[].command[],'kube-apiserver')
+        value: true
+      - type: value
+        key: length(spec.containers[?command[?starts_with(@, '--kubelet-client-certificate=')]]) == `0` || length(spec.containers[?command[?starts_with(@, '--kubelet-client-key=')]]) == `0`
+        value: true
