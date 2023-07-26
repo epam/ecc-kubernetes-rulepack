@@ -1,0 +1,55 @@
+name: 😺 New Policy Proposal
+description: Template for creating new policy
+title: "[New Policy Name]: "
+labels: ["new_policy", "policy"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this New Policy Proposal!
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. test@test.com
+    validations:
+      required: false
+  - type: input
+    id: source
+    attributes:
+      label: Source (Link)
+      description: What source did you use?
+      placeholder: ex. my own; ex. CIS Benchmark GCP Foundation v1.2.0 (1.1)
+    validations:
+      required: true
+  - type: textarea
+    id: describe-policy
+    attributes:
+      label: Describe the Policy Proposal
+      description: A clear and concise description of what the new policy is.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your proposal.  
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduce
+      description: "How to reproduce infrastructure with such a security risk?"
+      value: |
+        1.
+        2.
+        ...
+  - type: textarea
+    id: remediation
+    attributes:
+      label: Remediation
+      description: "How to fix security risk using gcloud cli or console?"
+      value: |
+        1.
+        2.
+        ...
