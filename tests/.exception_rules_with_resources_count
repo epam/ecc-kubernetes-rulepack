@@ -1,0 +1,68 @@
+red ecc-k8s-045-etcd_cluster_peer_auto_tls_argument_is_not_set_to_true 2
+
+red ecc-k8s-048-minimize_wildcard_use_in_clusterroles 10
+green ecc-k8s-048-minimize_wildcard_use_in_clusterroles 9
+
+red ecc-k8s-049-seccomp_profile_is_set_to_docker_default_in_pod_definitions 6
+green ecc-k8s-049-seccomp_profile_is_set_to_docker_default_in_pod_definitions 5
+
+green ecc-k8s-051-default_namespace_should_not_be_used_for_configmap 1
+red ecc-k8s-051-default_namespace_should_not_be_used_for_configmap 2
+
+green ecc-k8s-057-at_least_baseline_pod_security_level_policy_enforced_for_namespaces 5
+red ecc-k8s-057-at_least_baseline_pod_security_level_policy_enforced_for_namespaces 6
+
+green ecc-k8s-058-sa_tokens_are_only_mounted_where_necessary 41
+red ecc-k8s-058-sa_tokens_are_only_mounted_where_necessary 42
+
+green ecc-k8s-059-service_account_tokens_are_only_mounted_where_necessary_in_pods 9
+red ecc-k8s-059-service_account_tokens_are_only_mounted_where_necessary_in_pods 10
+
+green ecc-k8s-060-minimize_the_admission_of_hostpath_volumes 6
+red ecc-k8s-060-minimize_the_admission_of_hostpath_volumes 7
+
+green ecc-k8s-064-minimize_the_admission_of_containers_wishing_to_share_the_host_network_namespace 6 
+red ecc-k8s-064-minimize_the_admission_of_containers_wishing_to_share_the_host_network_namespace 7
+
+green ecc-k8s-066-minimize_the_admission_of_containers_with_the_net_raw_capability 1
+red ecc-k8s-066-minimize_the_admission_of_containers_with_the_net_raw_capability 2
+
+green ecc-k8s-067-minimize_the_admission_of_containers_with_added_capabilities 3
+red ecc-k8s-067-minimize_the_admission_of_containers_with_added_capabilities 4
+
+green ecc-k8s-068-liveness_probe_is_configured 1
+red ecc-k8s-068-liveness_probe_is_configured 2
+
+green ecc-k8s-069-readiness_probe_is_configured 1
+red ecc-k8s-069-readiness_probe_is_configured 2
+
+green ecc-k8s-071-minimize_the_admission_of_containers_with_capabilities_assigned 9
+red ecc-k8s-071-minimize_the_admission_of_containers_with_capabilities_assigned 10
+
+green ecc-k8s-072-readonly_filesystem_is_configured 7
+red ecc-k8s-072-readonly_filesystem_is_configured 8
+
+green ecc-k8s-076-cpu_request_is_set 2
+red ecc-k8s-076-cpu_request_is_set 3
+
+green ecc-k8s-078-cpu_limits_are_set 8
+red ecc-k8s-078-cpu_limits_are_set 9
+
+green ecc-k8s-079-memory_requests_are_set 5
+red ecc-k8s-079-memory_requests_are_set 6
+
+green ecc-k8s-080-memory_limits_are_set 6
+red ecc-k8s-080-memory_limits_are_set 7
+
+green ecc-k8s-082-limit_use_of_bind_impersonate_escalate_cluster_role 4 
+red ecc-k8s-082-limit_use_of_bind_impersonate_escalate_cluster_role 5
+
+green ecc-k8s-086-apply_security_context_to_your_pods_and_containers 9
+red ecc-k8s-086-apply_security_context_to_your_pods_and_containers 10
+
+green ecc-k8s-087-minimize_access_to_secrets_in_roles 2
+red ecc-k8s-087-minimize_access_to_secrets_in_roles 3
+
+green ecc-k8s-088-minimize_access_to_secrets_in_clusterroles 11
+red ecc-k8s-088-minimize_access_to_secrets_in_clusterroles 12
+

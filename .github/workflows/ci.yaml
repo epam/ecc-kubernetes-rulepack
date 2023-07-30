@@ -1,0 +1,27 @@
+name: test-custodian-policies
+on:
+  push:
+  pull_request_review:
+    types: 
+      - submitted
+
+jobs:
+  test_red_policies:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
+    runs-on: ubuntu-22.04
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/install_custodian
+      - name: test_policy_red_flights
+        shell: bash
+        run: ./.github/workflows/scripts/test_red_policies.sh
+
+  test_green_policies:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
+    runs-on: ubuntu-22.04
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/actions/install_custodian
+      - name: test_policy_green_flights
+        shell: bash
+        run: ./.github/workflows/scripts/test_green_policies.sh
