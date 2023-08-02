@@ -1,0 +1,22 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: cluster-002-red
+nodes:
+- role: control-plane
+  image: kindest/node:v1.25.11@sha256:227fa11ce74ea76a0474eeefb84cb75d8dad1b08638371ecf0e86259b35be0c8
+  extraMounts:
+      - hostPath: ./token-auth-file.csv
+        containerPath: /etc/kubernetes/token-auth-file.csv
+        readOnly: true
+  kubeadmConfigPatches:
+  - |
+    kind: ClusterConfiguration
+    apiServer:
+      extraArgs:
+        token-auth-file: "/etc/kubernetes/token-auth-file.csv"
+      extraVolumes:
+          - name: "token-auth-file"
+            hostPath: "/etc/kubernetes/token-auth-file.csv"
+            mountPath: "/etc/kubernetes/token-auth-file.csv"
+            readOnly: true
+            pathType: File

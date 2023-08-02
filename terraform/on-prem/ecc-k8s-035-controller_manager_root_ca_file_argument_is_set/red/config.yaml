@@ -1,0 +1,15 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: cluster-035-red
+nodes:
+- role: control-plane
+  image: kindest/node:v1.25.11@sha256:227fa11ce74ea76a0474eeefb84cb75d8dad1b08638371ecf0e86259b35be0c8
+  extraMounts:
+  - hostPath: ./kube-controller-manager.yaml
+    containerPath: /patches/kube-controller-manager-cluster-035-red-control-plane.yaml
+
+kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    patches:
+      directory: /patches  

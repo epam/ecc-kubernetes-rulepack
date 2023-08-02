@@ -10,21 +10,17 @@ policies:
     description: |
       Containers filesystem is not read-only
     filters:
-      - not:
-        - or:
+      - or:
           - type: value
-            key: spec.containers[*].security_context.read_only_root_filesystem
-            value: true
-            op: in
-            value_type: swap
+            key: length(spec.containers[?security_context.read_only_root_filesystem != `true`])
+            value: 0
+            op: gt
           - type: value
-            key: spec.init_containers[*].security_context.read_only_root_filesystem
-            value: true
-            op: in
-            value_type: swap
+            key: spec.init_containers && length(spec.init_containers[?security_context.read_only_root_filesystem != `true`])
+            value: 0
+            op: gt
           - type: value
-            key: spec.ephemeral_containers[*].security_context.read_only_root_filesystem
-            value: true
-            op: in
-            value_type: swap
+            key: spec.ephemeral_containers && length(spec.ephemeral_containers[?security_context.read_only_root_filesystem != `true`])
+            value: 0
+            op: gt
 

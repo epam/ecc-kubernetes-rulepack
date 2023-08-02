@@ -17,11 +17,11 @@ resource "kubernetes_pod_v1" "this" {
       }
       volume_mount{
         mount_path = "/home"
-        name = "volume-060-red02"
+        name = "volume-060-green"
       }
     }
     volume {
-      name = "volume-060-green01"
+      name = "volume-060-green"
       config_map {
         name = kubernetes_config_map_v1.this.metadata[0].name
       }

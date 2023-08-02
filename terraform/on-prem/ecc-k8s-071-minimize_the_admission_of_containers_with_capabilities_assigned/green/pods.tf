@@ -30,8 +30,9 @@ resource "null_resource" "this" {
 
   provisioner "local-exec" {
     command     = <<CMD
-    eval $(minikube docker-env)
+    # eval $(minikube docker-env)
     docker build . -t ${var.image}
+    kind load docker-image ${var.image} --name `kind get clusters`
     CMD
     interpreter = ["/bin/bash", "-c"]
   }
@@ -39,7 +40,7 @@ resource "null_resource" "this" {
   provisioner "local-exec" {
     when        = destroy
     command     = <<CMD
-    eval $(minikube docker-env)
+    # eval $(minikube docker-env)
     docker rmi ${self.triggers.image}
     CMD
     interpreter = ["/bin/bash", "-c"]

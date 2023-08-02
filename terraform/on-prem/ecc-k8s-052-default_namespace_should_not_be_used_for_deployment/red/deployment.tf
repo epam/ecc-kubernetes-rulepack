@@ -28,7 +28,7 @@ resource "kubernetes_deployment_v1" "this" {
       spec {
         container {
           image = "nginx:1.21.6"
-          name  = "container-052-green"
+          name  = "container-052-red"
         }
       }
     }
