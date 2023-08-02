@@ -1,13 +1,10 @@
-resource "null_resource" "this" {
-
-  provisioner "local-exec" {
-    command     = "sudo apt install -y jq && kubectl get serviceaccounts --all-namespaces -o json |   jq '.items[].automountServiceAccountToken = false' | kubectl apply -f -"
-    interpreter = ["/bin/bash", "-c"]
+resource "kubernetes_service_account_v1" "this" {
+  metadata {
+    name = "service-account-058-green"
+    labels = {
+      CustodianRule    = "ecc-k8s-058-sa_tokens_are_only_mounted_where_necessary"
+      ComplianceStatus = "Green"
+    }
   }
-
-  provisioner "local-exec" {
-    when        = destroy
-    command     = "kubectl get serviceaccounts --all-namespaces -o json |   jq '.items[].automountServiceAccountToken = true' |   kubectl apply -f -"
-    interpreter = ["/bin/bash", "-c"]
-  }
+  automount_service_account_token = false
 }

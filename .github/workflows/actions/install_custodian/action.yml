@@ -1,0 +1,13 @@
+name: "Installing cloud-custodian"
+description: "Installing cloud-custodian"
+runs:
+  using: "composite"
+  steps: 
+  - run: |
+      command -v git >/dev/null || ( apt-get update -y && apt-get install git -y )
+      python3 -m venv custodian
+      source custodian/bin/activate
+      pip install c7n  
+      pip install c7n_kube
+      docker pull kindest/node:v1.25.11 
+    shell: bash
