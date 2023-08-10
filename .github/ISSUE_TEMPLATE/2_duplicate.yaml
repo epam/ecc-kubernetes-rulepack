@@ -1,0 +1,45 @@
+name: 😾 Duplicate Exsiting Policy
+description: Template for reporting a duplicate of an existing policy
+title: "[Duplicate Policy Name]: "
+labels: ["policy","duplicate"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this duplicate of an existing policy!
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. test@test.com
+    validations:
+      required: false
+  - type: input
+    id: policy1
+    attributes:
+      label: First Duplicate Policy
+      description: Insert a link to the policy
+      placeholder: ex. policies/ecc-gcp-006-serviceaccount_key_rotation_90_days.yml
+    validations:
+      required: true
+  - type: input
+    id: policy2
+    attributes:
+      label: Second Duplicate Policy
+      description: Insert a link to the policy
+      placeholder: ex. policies/ecc-gcp-007-sa_key_rotation_90_days.yml
+    validations:
+      required: true
+  - type: textarea
+    id: add-info
+    attributes:
+      label: Additional information
+      description: Provide additional information.
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots.
