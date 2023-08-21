@@ -17,3 +17,4 @@ policies:
           (spec.init_containers[]!=`null` && length(spec.init_containers[?security_context==`null`])>=`1`) ||
           (spec.ephemeral_containers[]!=`null` && length(spec.ephemeral_containers[?security_context==`null`])>=`1`)
         value: true
+    comment: '0323222300'

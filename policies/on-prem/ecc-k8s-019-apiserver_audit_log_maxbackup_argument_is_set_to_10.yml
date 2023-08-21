@@ -21,4 +21,4 @@ policies:
       - type: value
         key: spec.containers[].command[?ends_with(@, '=10')][] | length([?contains(@, 'audit-log-maxbackup')])==`1`
         value: false
-
+    comment: '0349192300'

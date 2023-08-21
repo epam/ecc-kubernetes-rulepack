@@ -21,4 +21,4 @@ policies:
       - type: value
         key: spec.containers[].command[?ends_with(@, '=100')][] | length([?contains(@, 'audit-log-maxsize')])==`1`
         value: false
-
+    comment: '0320192300'

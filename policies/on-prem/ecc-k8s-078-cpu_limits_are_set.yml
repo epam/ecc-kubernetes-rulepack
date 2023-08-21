@@ -15,3 +15,4 @@ policies:
           (spec.containers!=`null` && length(spec.containers[?resources.limits.cpu==`null`])>=`1`) ||
           (spec.init_containers!=`null` && length(spec.init_containers[?resources.limits.cpu==`null`])>=`1`)
         value: true
+    comment: '0320222000'
