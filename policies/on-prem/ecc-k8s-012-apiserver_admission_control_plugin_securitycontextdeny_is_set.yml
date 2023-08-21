@@ -27,3 +27,4 @@ policies:
           length([?contains(@, `PodSecurityPolicy`)])==`0` && length([?contains(@, `SecurityContextDeny`)])==`0` ||
           length([?contains(@, `PodSecurityPolicy`)])==`1` && length([?contains(@, `SecurityContextDeny`)])==`1`
         value: true
+    comment: '0333192300'

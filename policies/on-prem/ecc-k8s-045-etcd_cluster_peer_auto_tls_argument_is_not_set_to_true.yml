@@ -19,4 +19,4 @@ policies:
       - type: value
         key: length(spec.containers[?contains(command,'--peer-auto-tls') || contains(command,'--peer-auto-tls=true')])==`1`
         value: true
-
+    comment: '0325212300'

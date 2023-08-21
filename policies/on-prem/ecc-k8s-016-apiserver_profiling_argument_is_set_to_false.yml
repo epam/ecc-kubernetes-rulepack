@@ -24,3 +24,4 @@ policies:
       - type: value
         key: spec.containers[].command[?starts_with(@, '--profiling=')][] | length([?contains(@, to_string(`false`))])==`1`
         value: false
+    comment: '0320192300'

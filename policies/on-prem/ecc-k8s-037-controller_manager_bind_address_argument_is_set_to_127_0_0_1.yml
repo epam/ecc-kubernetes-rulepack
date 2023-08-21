@@ -18,3 +18,4 @@ policies:
           (length(spec.containers[?command[?contains(@, '--bind-address=0.0.0.0')]])==`1` || 
           length(spec.containers[?command[?starts_with(@, '--bind-address')]]) == `0`)
         value: true
+    comment: '0340202300'
