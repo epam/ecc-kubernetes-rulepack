@@ -17,4 +17,4 @@ policies:
           contains(spec.containers[].command[],'kube-apiserver') &&
           (spec.containers[].command[?starts_with(@, '--authorization-mode=')][] | length([?contains(@, `Node`)])==`0`)
         value: true
-
+    comment: '0333192300'

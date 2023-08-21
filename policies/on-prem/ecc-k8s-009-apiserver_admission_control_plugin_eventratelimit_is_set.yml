@@ -21,4 +21,4 @@ policies:
           (spec.containers[].command[?starts_with(@, '--disable-admission-plugins=')][]  | length([?contains(@, `EventRateLimit`)])==`1`) || 
           (spec.containers[].command[?starts_with(@, '--enable-admission-plugins=')][]  | length([?contains(@, `EventRateLimit`)])==`0`)
         value: true
-
+    comment: '0326192300'

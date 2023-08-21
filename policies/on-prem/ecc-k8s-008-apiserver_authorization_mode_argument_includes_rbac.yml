@@ -21,4 +21,4 @@ policies:
       - type: value
         key: spec.containers[].command[?starts_with(@, '--authorization-mode=')][] | length([?contains(@, `RBAC`)])==`1`
         value: false
-
+    comment: '0333192300'

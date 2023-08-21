@@ -17,3 +17,4 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'kube-apiserver')][].command[?starts_with(@, '--encryption-provider-config')][])
             value: 1
+    comment: '0343192300'

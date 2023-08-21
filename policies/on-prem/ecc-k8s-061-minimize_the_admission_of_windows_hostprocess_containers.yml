@@ -17,4 +17,4 @@ policies:
           (spec.init_containers[*].security_context.windows_options.host_process && contains(spec.init_containers[*].security_context.windows_options.host_process,`true`)) ||
           (spec.ephemeral_containers[*].security_context.windows_options.host_process && contains(spec.ephemeral_containers[*].security_context.windows_options.host_process,`true`))
         value: true
-
+    comment: '0323232300'

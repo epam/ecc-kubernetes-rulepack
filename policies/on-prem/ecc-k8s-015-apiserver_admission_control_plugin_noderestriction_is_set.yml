@@ -24,3 +24,4 @@ policies:
       - type: value
         key: spec.containers[].command[?starts_with(@, '--enable-admission-plugins=')][] | length([?contains(@, `NodeRestriction`)])==`1`
         value: false
+    comment: '0323192300'

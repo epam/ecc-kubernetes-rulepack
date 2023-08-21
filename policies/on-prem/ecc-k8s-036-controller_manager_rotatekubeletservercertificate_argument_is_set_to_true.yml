@@ -19,3 +19,4 @@ policies:
       - type: value
         key: (spec.containers[].command[?starts_with(@, '--feature-gates=')][]  | length([?contains(@, `RotateKubeletServerCertificate=false`)])==`1`)
         value: true
+    comment: '0329202300'

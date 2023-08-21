@@ -13,4 +13,4 @@ policies:
       - type: value
         key: contains(['baseline', 'restricted'], metadata.labels."pod-security.kubernetes.io/enforce")
         value: false
-
+    comment: '0323232000'

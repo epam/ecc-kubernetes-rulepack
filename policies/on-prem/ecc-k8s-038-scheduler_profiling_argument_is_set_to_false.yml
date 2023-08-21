@@ -17,4 +17,4 @@ policies:
           contains(spec.containers[].command[],'kube-scheduler') &&
           length(spec.containers[?command[?contains(@, '--profiling=false')]])==`0`
         value: true
-
+    comment: '0323252300'
