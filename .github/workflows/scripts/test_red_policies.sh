@@ -59,6 +59,7 @@ echo "$RULE_NAMES" | while IFS=  read -r policy ; do
             done
             kind create cluster --config config.yaml
             cluster_name=`kind get clusters | grep cluster`
+            sleep 2
             check_count $policy kind-$cluster_name $red_infra
             kind delete clusters $cluster_name
             
