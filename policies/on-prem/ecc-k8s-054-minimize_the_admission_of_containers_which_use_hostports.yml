@@ -15,4 +15,4 @@ policies:
           (spec.init_containers[*].ports[*].host_port && (spec.init_containers[*].ports[*].[host_port!=`0` && host_port!=`null`][][] | contains(@, `true`))) || 
           (spec.containers[*].ports[*].host_port && (spec.containers[*].ports[*].[host_port!=`0` && host_port!=`null`][][] | contains(@, `true`) ))
         value: true
-
+    comment: '0320232300'

@@ -17,3 +17,4 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'etcd')][].command[?(starts_with(@, '--cert-file') || starts_with(@, '--key-file'))][])
             value: 2
+    comment: '0344212300'

@@ -18,4 +18,4 @@ policies:
           (contains(keys(@),'resources') && resources!=`null` && contains(resources, '*')) || 
           (contains(keys(@),'verbs') && verbs!=`null` && contains(verbs, '*')))])>`0`
         value: true
-
+    comment: '0333242300'

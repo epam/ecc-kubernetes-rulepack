@@ -21,3 +21,4 @@ policies:
           (spec.containers[].command[?starts_with(@, '--disable-admission-plugins=')][]  | length([?contains(@, `DenyServiceExternalIPs`)])==`1`) || 
           (spec.containers[].command[?starts_with(@, '--enable-admission-plugins=')][]  | length([?contains(@, `DenyServiceExternalIPs`)])==`0`)
         value: true
+    comment: '0323192000'

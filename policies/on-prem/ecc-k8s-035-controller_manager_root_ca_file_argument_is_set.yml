@@ -17,3 +17,4 @@ policies:
           contains(spec.containers[].command[],'kube-controller-manager') &&
           length(spec.containers[?command[?contains(@, '--root-ca-file=')]])==`0`
         value: true
+    comment: '0330202300'

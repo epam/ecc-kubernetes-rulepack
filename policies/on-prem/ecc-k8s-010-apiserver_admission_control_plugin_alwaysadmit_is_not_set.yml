@@ -24,3 +24,4 @@ policies:
       - type: value
         key: spec.containers[].command[?starts_with(@, '--enable-admission-plugins=')][] | length([?contains(@, `AlwaysAdmit`)])==`1`
         value: true
+    comment: '0323192300'

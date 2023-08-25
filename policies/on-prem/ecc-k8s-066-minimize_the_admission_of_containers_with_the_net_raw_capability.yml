@@ -23,3 +23,4 @@ policies:
             key: spec.ephemeral_containers[*].security_context.capabilities.add[]
             value: ["NET_RAW", "ALL"]
             op: intersect
+    comment: '0323232300'

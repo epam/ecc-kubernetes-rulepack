@@ -24,3 +24,4 @@ policies:
       - type: value
         key: spec.containers[].command[?starts_with(@, '--disable-admission-plugins=')][] | length([?contains(@, `NamespaceLifecycle`)])==`1`
         value: true
+    comment: '0320192300'

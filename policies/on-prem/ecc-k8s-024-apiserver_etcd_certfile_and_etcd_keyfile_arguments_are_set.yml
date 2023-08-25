@@ -17,3 +17,4 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'kube-apiserver')][].command[?(starts_with(@, '--etcd-certfile') || starts_with(@, '--etcd-keyfile'))][])
             value: 2
+    comment: '0344192300'
