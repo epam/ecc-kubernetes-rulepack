@@ -17,3 +17,4 @@ policies:
           contains(spec.containers[].command[],'kube-apiserver') &&
           (spec.containers[].command[?starts_with(@, '--audit-log-path=')][] | length(@)==`0`)
         value: true
+    comment: '0319192300'

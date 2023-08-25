@@ -17,3 +17,4 @@ policies:
           contains(spec.containers[].command[],'kube-apiserver') &&
           length(spec.containers[?command[?starts_with(@, '--kubelet-certificate-authority=')]]) == `0`
         value: true
+    comment: '0320192300'

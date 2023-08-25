@@ -17,3 +17,4 @@ policies:
             spec.ephemeral_containers[*].security_context.capabilities.add[]
           value: ["SYS_ADMIN"]
           op: intersect
+    comment: '0323232000'

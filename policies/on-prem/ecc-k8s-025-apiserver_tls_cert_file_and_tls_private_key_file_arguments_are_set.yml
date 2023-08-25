@@ -17,3 +17,4 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'kube-apiserver')][].command[?(starts_with(@, '--tls-cert-file') || starts_with(@, '--tls-private-key-file'))][])
             value: 2
+    comment: '0344192300'
