@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-043-etcd_cluster_peer_cert_file_and_peer_key_file_arguments_are_set_as_appropriate
-    resource: k8s.pod
+    comment: '000144212300'
     description: |
       The --peer-client-file and --peer-key-file arguments not configured for etcd
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -17,4 +18,3 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'etcd')][].command[?(starts_with(@, '--peer-cert-file') || starts_with(@, '--peer-key-file'))][])
             value: 2
-    comment: '0344212300'

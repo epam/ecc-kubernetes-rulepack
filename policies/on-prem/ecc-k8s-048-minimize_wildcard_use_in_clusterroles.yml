@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-048-minimize_wildcard_use_in_clusterroles
+    comment: '000133242300'
     description: |
       ClusterRole uses wildcard "*" which matches all items
     resource: k8s.cluster-role
@@ -18,4 +19,3 @@ policies:
           (contains(keys(@),'resources') && resources!=`null` && contains(resources, '*')) || 
           (contains(keys(@),'verbs') && verbs!=`null` && contains(verbs, '*')))])>`0`
         value: true
-    comment: '0333242300'

@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-052-default_namespace_should_not_be_used_for_deployment
+    comment: '000123222300'
     description: |
       The default namespace is used for deployment
     resource: k8s.deployment
@@ -13,4 +14,3 @@ policies:
       - type: value
         key: metadata.namespace
         value: default
-    comment: '0323222300'

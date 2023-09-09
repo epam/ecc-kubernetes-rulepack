@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-057-at_least_baseline_pod_security_level_policy_enforced_for_namespaces
+    comment: '000123232000'
     description: |
       Baseline or restricted pod security standard policy is not enforced for namespaces
     resource: k8s.namespace
@@ -13,4 +14,3 @@ policies:
       - type: value
         key: contains(['baseline', 'restricted'], metadata.labels."pod-security.kubernetes.io/enforce")
         value: false
-    comment: '0323232000'

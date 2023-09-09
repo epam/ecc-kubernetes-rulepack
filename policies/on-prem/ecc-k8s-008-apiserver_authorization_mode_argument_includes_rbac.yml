@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-008-apiserver_authorization_mode_argument_includes_rbac
-    resource: k8s.pod
+    comment: '000133192300'
     description: |
       Authorization mode argument do not includes RBAC
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -21,4 +22,3 @@ policies:
       - type: value
         key: spec.containers[].command[?starts_with(@, '--authorization-mode=')][] | length([?contains(@, `RBAC`)])==`1`
         value: false
-    comment: '0333192300'

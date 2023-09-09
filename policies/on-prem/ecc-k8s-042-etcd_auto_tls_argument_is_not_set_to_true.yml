@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-042-etcd_auto_tls_argument_is_not_set_to_true
-    resource: k8s.pod
+    comment: '000125212300'
     description: |
       etcd --auto-tls argument is not set to false
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -29,4 +30,3 @@ policies:
             op: in
             value_type: swap
             value: "--auto-tls"
-    comment: '0325212300'

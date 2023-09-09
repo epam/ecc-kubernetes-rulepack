@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-071-minimize_the_admission_of_containers_with_capabilities_assigned
+    comment: '000123232300'
     description: |
       Pod does not set up to drop capabilities by all containers
     resource: k8s.pod
@@ -26,4 +27,3 @@ policies:
             value: "ALL"
             value_type: swap
             op: ni
-    comment: '0323232300'

@@ -6,27 +6,27 @@
 
 policies:
   - name: ecc-k8s-068-liveness_probe_is_configured
-    resource: k8s.pod
+    comment: '000120222000'
     description: |
       Liveness probe is not configured
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.namespace
         op: not-in
         value: kube-system
       - or:
-        - and:
-          - type: value
-            key: spec.containers[].liveness_probe
-            value: present
-          - type: value
-            key: spec.containers[].liveness_probe
-            value: empty
-        - and:
-          - type: value
-            key: spec.init_containers[].liveness_probe
-            value: present
-          - type: value
-            key: spec.init_containers[].liveness_probe
-            value: empty
-    comment: '0320222000'
+          - and:
+              - type: value
+                key: spec.containers[].liveness_probe
+                value: present
+              - type: value
+                key: spec.containers[].liveness_probe
+                value: empty
+          - and:
+              - type: value
+                key: spec.init_containers[].liveness_probe
+                value: present
+              - type: value
+                key: spec.init_containers[].liveness_probe
+                value: empty

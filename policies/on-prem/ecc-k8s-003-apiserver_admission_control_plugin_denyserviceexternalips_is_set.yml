@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-003-apiserver_admission_control_plugin_denyserviceexternalips_is_set
+    comment: '000123192000'
     description: |
       The admission control plugin DenyServiceExternalIPs is not set
     resource: k8s.pod
@@ -21,4 +22,3 @@ policies:
           (spec.containers[].command[?starts_with(@, '--disable-admission-plugins=')][]  | length([?contains(@, `DenyServiceExternalIPs`)])==`1`) || 
           (spec.containers[].command[?starts_with(@, '--enable-admission-plugins=')][]  | length([?contains(@, `DenyServiceExternalIPs`)])==`0`)
         value: true
-    comment: '0323192000'

@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-070-minimize-the-admission-of-root-containers
+    comment: '000123232300'
     description: |
       Pod with containers is run as the root user
     resource: k8s.pod
@@ -17,4 +18,3 @@ policies:
           (spec.init_containers != `null` && (length(spec.init_containers[?security_context.run_as_user == `0` || security_context.run_as_non_root == `false`])>=`1`)) ||
           (spec.ephemeral_containers != `null` && (length(spec.ephemeral_containers[?security_context.run_as_user == `0` || security_context.run_as_non_root == `false`])>=`1`))
         value: true
-    comment: '0323232300'
