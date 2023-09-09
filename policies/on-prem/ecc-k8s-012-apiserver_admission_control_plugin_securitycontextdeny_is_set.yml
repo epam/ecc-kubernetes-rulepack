@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-012-apiserver_admission_control_plugin_securitycontextdeny_is_set
-    resource: k8s.pod
+    comment: '000133192300'
     description: |
       The admission control plugin SecurityContextDeny is not set if PodSecurityPolicy is not used
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -27,4 +28,3 @@ policies:
           length([?contains(@, `PodSecurityPolicy`)])==`0` && length([?contains(@, `SecurityContextDeny`)])==`0` ||
           length([?contains(@, `PodSecurityPolicy`)])==`1` && length([?contains(@, `SecurityContextDeny`)])==`1`
         value: true
-    comment: '0333192300'

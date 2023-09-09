@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-026-apiserver_client_ca_file_argument_is_set
-    resource: k8s.pod
+    comment: '000144192300'
     description: |
       The --client-ca-file argument not configured for apiserver
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -17,4 +18,3 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'kube-apiserver')][].command[?starts_with(@, '--client-ca-file')][])
             value: 1
-    comment: '0344192300'

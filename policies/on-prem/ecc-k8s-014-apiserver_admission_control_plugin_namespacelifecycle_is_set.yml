@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-014-apiserver_admission_control_plugin_namespacelifecycle_is_set
-    resource: k8s.pod
+    comment: '000120192300'
     description: |
       The admission control plugin NamespaceLifecycle is not set
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -24,4 +25,3 @@ policies:
       - type: value
         key: spec.containers[].command[?starts_with(@, '--disable-admission-plugins=')][] | length([?contains(@, `NamespaceLifecycle`)])==`1`
         value: true
-    comment: '0320192300'

@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-035-controller_manager_root_ca_file_argument_is_set
+    comment: '000130202300'
     description: |
       The --root-ca-file argument is not set for Controller Manager
     resource: k8s.pod
@@ -17,4 +18,3 @@ policies:
           contains(spec.containers[].command[],'kube-controller-manager') &&
           length(spec.containers[?command[?contains(@, '--root-ca-file=')]])==`0`
         value: true
-    comment: '0330202300'

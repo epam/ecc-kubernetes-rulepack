@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-004-apiserver_kubelet_client_certificate_and_kubelet_client_key_arguments_are_set
+    comment: '000120192300'
     description: |
       The --kubelet-client-certificate and --kubelet-client-key arguments are not set
     resource: k8s.pod
@@ -19,4 +20,3 @@ policies:
       - type: value
         key: length(spec.containers[?command[?starts_with(@, '--kubelet-client-certificate=')]]) == `0` || length(spec.containers[?command[?starts_with(@, '--kubelet-client-key=')]]) == `0`
         value: true
-    comment: '0320192300'

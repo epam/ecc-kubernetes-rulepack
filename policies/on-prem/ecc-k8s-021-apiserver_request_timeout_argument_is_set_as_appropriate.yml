@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-021-apiserver_request_timeout_argument_is_set_as_appropriate
-    resource: k8s.pod
+    comment: '000150192300'
     description: |
       The --request-timeout argument is not set as appropriate
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -24,4 +25,3 @@ policies:
             op: in
             value_type: swap
             value: "--request-timeout=300s"
-    comment: '0350192300'

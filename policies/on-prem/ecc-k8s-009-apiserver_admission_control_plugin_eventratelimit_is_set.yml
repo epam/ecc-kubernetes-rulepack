@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-009-apiserver_admission_control_plugin_eventratelimit_is_set
+    comment: '000126192300'
     description: |
       The admission control plugin EventRateLimit is not set
     resource: k8s.pod
@@ -21,4 +22,3 @@ policies:
           (spec.containers[].command[?starts_with(@, '--disable-admission-plugins=')][]  | length([?contains(@, `EventRateLimit`)])==`1`) || 
           (spec.containers[].command[?starts_with(@, '--enable-admission-plugins=')][]  | length([?contains(@, `EventRateLimit`)])==`0`)
         value: true
-    comment: '0326192300'

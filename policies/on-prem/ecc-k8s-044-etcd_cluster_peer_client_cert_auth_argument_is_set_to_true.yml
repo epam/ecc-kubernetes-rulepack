@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-044-etcd_cluster_peer_client_cert_auth_argument_is_set_to_true
-    resource: k8s.pod
+    comment: '000133212300'
     description: |
       The etcd --peer-client-cert-auth argument is not set to true
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -30,4 +31,3 @@ policies:
                 op: in
                 value_type: swap
                 value: "--peer-client-cert-auth"
-    comment: '0333212300'

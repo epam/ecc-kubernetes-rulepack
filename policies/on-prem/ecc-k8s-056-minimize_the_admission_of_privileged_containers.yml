@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-056-minimize_the_admission_of_privileged_containers
-    resource: k8s.pod
+    comment: '000123232300'
     description: |
       The securityContext.privileged flag is set to True for a pod
+    resource: k8s.pod
     filters:
       - not:
           - type: value
@@ -30,4 +31,3 @@ policies:
             op: in
             value_type: swap
             value: true
-    comment: '0323232300'

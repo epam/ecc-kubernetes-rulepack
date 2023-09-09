@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-067-minimize_the_admission_of_containers_with_added_capabilities
-    resource: k8s.pod
+    comment: '000123232300'
     description: |
       Admission of containers with added capabilities is not minimized
+    resource: k8s.pod
     filters:
       - or:
           - and:
@@ -41,4 +42,3 @@ policies:
                     op: in
                     value_type: swap
                     value: "ALL"
-    comment: '0323232300'

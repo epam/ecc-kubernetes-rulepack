@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-050-default_namespace_should_not_be_used_for_pods
+    comment: '000123222300'
     description: |
       The default namespace is used for pods
     resource: k8s.pod
@@ -13,4 +14,3 @@ policies:
       - type: value
         key: metadata.namespace
         value: default
-    comment: '0323222300'

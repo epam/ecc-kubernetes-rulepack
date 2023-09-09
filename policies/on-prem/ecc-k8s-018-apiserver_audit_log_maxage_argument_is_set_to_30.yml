@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-018-apiserver_audit_log_maxage_argument_is_set_to_30
-    resource: k8s.pod
+    comment: '000120192300'
     description: |
       The --audit-log-maxage argument is not set to 30 or appropriate
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -21,4 +22,3 @@ policies:
       - type: value
         key: spec.containers[].command[?ends_with(@, '=30')][] | length([?contains(@, 'audit-log-maxage')])==`1`
         value: false
-    comment: '0320192300'
