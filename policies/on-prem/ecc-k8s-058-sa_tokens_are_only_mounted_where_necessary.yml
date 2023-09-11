@@ -6,12 +6,12 @@
 
 policies:
   - name: ecc-k8s-058-sa_tokens_are_only_mounted_where_necessary
-    resource: k8s.service-account
+    comment: '000133242300'
     description: |
       Service account tokens are mounted where not necessary for service accounts
+    resource: k8s.service-account
     filters:
       - type: value
         key: automount_service_account_token
         value: false
         op: ne
-    comment: '0333242300'

@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-036-controller_manager_rotatekubeletservercertificate_argument_is_set_to_true
+    comment: '000129202300'
     description: |
       The RotateKubeletServerCertificate argument is not set to true
     resource: k8s.pod
@@ -19,4 +20,3 @@ policies:
       - type: value
         key: (spec.containers[].command[?starts_with(@, '--feature-gates=')][]  | length([?contains(@, `RotateKubeletServerCertificate=false`)])==`1`)
         value: true
-    comment: '0329202300'

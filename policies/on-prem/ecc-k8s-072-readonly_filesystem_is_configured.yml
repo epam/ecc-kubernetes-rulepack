@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-072-readonly_filesystem_is_configured
-    resource: k8s.pod
+    comment: '000123232000'
     description: |
       Containers filesystem is not read-only
+    resource: k8s.pod
     filters:
       - or:
           - type: value
@@ -24,4 +25,3 @@ policies:
             value: 0
             op: gt
 
-    comment: '0323232000'

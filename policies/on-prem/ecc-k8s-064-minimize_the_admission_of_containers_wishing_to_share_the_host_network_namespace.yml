@@ -6,11 +6,11 @@
 
 policies:
   - name: ecc-k8s-064-minimize_the_admission_of_containers_wishing_to_share_the_host_network_namespace
-    resource: k8s.pod
+    comment: '000123232300'
     description: |
       Pod's hostNetwork flag is set to true
+    resource: k8s.pod
     filters:
       - type: value
         key: spec.host_network
         value: true
-    comment: '0323232300'

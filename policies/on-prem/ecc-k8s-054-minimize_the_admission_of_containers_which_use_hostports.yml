@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-054-minimize_the_admission_of_containers_which_use_hostports
+    comment: '000120232300'
     description: |
       A hostPort setting is set for a pod 
     resource: k8s.pod
@@ -15,4 +16,3 @@ policies:
           (spec.init_containers[*].ports[*].host_port && (spec.init_containers[*].ports[*].[host_port!=`0` && host_port!=`null`][][] | contains(@, `true`))) || 
           (spec.containers[*].ports[*].host_port && (spec.containers[*].ports[*].[host_port!=`0` && host_port!=`null`][][] | contains(@, `true`) ))
         value: true
-    comment: '0320232300'

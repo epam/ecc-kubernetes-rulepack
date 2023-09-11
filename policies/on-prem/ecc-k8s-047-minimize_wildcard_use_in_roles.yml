@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-047-minimize_wildcard_use_in_roles
+    comment: '000133242300'
     description: |
       Role uses wildcard "*" which matches all items
     resource: k8s.role
@@ -17,4 +18,3 @@ policies:
           (rules[?contains(keys(@),'resources') && resources!=`null` && contains(resources, '*')]) || 
           (rules[?contains(keys(@),'verbs') && verbs!=`null` && contains(verbs, '*')])) >`0`
         value: true
-    comment: '0333242300'

@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-001-apiserver_anonymous_auth_argument_is_set_to_false
+    comment: '000133192300'
     description: |
       The --anonymous-auth argument is set to true
     resource: k8s.pod
@@ -28,4 +29,3 @@ policies:
                 op: in
                 value_type: swap
                 value: "--anonymous-auth=false"
-    comment: '0333192300'

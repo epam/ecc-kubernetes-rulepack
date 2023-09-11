@@ -6,11 +6,11 @@
 
 policies:
   - name: ecc-k8s-062-minimize_the_admission_of_containers_wishing_to_share_the_host_ipc_namespace
-    resource: k8s.pod
+    comment: '000123232300'
     description: |
       A hostIPC setting is set to true for a pod
+    resource: k8s.pod
     filters:
       - type: value
         key: spec.host_ipc
         value: true
-    comment: '0323232300'
