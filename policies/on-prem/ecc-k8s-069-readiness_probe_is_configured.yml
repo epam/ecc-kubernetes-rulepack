@@ -6,27 +6,27 @@
 
 policies:
   - name: ecc-k8s-069-readiness_probe_is_configured
-    resource: k8s.pod
+    comment: '000120222000'
     description: |
       Readiness probe is not configured
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.namespace
         op: not-in
         value: kube-system
       - or:
-        - and:
-          - type: value
-            key: spec.containers[].readiness_probe
-            value: present
-          - type: value
-            key: spec.containers[].readiness_probe
-            value: empty
-        - and:
-          - type: value
-            key: spec.init_containers[].readiness_probe
-            value: present
-          - type: value
-            key: spec.init_containers[].readiness_probe
-            value: empty
-    comment: '0320222000'
+          - and:
+              - type: value
+                key: spec.containers[].readiness_probe
+                value: present
+              - type: value
+                key: spec.containers[].readiness_probe
+                value: empty
+          - and:
+              - type: value
+                key: spec.init_containers[].readiness_probe
+                value: present
+              - type: value
+                key: spec.init_containers[].readiness_probe
+                value: empty

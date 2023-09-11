@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-006-apiserver_authorization_mode_argument_is_not_set_to_alwaysallow
+    comment: '000133192300'
     description: |
       The --authorization-mode argument is set to AlwaysAllow
     resource: k8s.pod
@@ -17,4 +18,3 @@ policies:
           contains(spec.containers[].command[],'kube-apiserver') &&
           (spec.containers[].command[?starts_with(@, '--authorization-mode=')][] | length([?contains(@, `AlwaysAllow`)])==`1`)
         value: true
-    comment: '0333192300'

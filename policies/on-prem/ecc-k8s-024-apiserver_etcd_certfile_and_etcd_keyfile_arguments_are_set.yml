@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-024-apiserver_etcd_certfile_and_etcd_keyfile_arguments_are_set
-    resource: k8s.pod
+    comment: '000144192300'
     description: |
       The --etcd-certfile and --etcd-keyfile arguments not configured for apiserver
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -17,4 +18,3 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'kube-apiserver')][].command[?(starts_with(@, '--etcd-certfile') || starts_with(@, '--etcd-keyfile'))][])
             value: 2
-    comment: '0344192300'

@@ -6,9 +6,10 @@
 
 policies:
   - name: ecc-k8s-016-apiserver_profiling_argument_is_set_to_false
-    resource: k8s.pod
+    comment: '000120192300'
     description: |
       The --profiling argument is not set to false for API Server
+    resource: k8s.pod
     filters:
       - type: value
         key: metadata.labels.component
@@ -24,4 +25,3 @@ policies:
       - type: value
         key: spec.containers[].command[?starts_with(@, '--profiling=')][] | length([?contains(@, to_string(`false`))])==`1`
         value: false
-    comment: '0320192300'

@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-005-apiserver_kubelet_certificate_authority_argument_is_set
+    comment: '000120192300'
     description: |
       The --kubelet-certificate-authority argument is not set
     resource: k8s.pod
@@ -17,4 +18,3 @@ policies:
           contains(spec.containers[].command[],'kube-apiserver') &&
           length(spec.containers[?command[?starts_with(@, '--kubelet-certificate-authority=')]]) == `0`
         value: true
-    comment: '0320192300'

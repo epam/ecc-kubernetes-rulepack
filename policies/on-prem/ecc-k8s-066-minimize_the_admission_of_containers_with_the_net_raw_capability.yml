@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-066-minimize_the_admission_of_containers_with_the_net_raw_capability
+    comment: '000123232300'
     description: |
       The NET_RAW capability is set for a pod
     resource: k8s.pod
@@ -23,4 +24,3 @@ policies:
             key: spec.ephemeral_containers[*].security_context.capabilities.add[]
             value: ["NET_RAW", "ALL"]
             op: intersect
-    comment: '0323232300'

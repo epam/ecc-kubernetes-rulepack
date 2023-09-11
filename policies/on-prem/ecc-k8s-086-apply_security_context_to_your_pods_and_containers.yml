@@ -6,6 +6,7 @@
 
 policies:
   - name: ecc-k8s-086-apply_security_context_to_your_pods_and_containers
+    comment: '000123222300'
     description: |
       The securityContext is not applied to pods and containers
     resource: k8s.pod
@@ -17,4 +18,3 @@ policies:
           (spec.init_containers[]!=`null` && length(spec.init_containers[?security_context==`null`])>=`1`) ||
           (spec.ephemeral_containers[]!=`null` && length(spec.ephemeral_containers[?security_context==`null`])>=`1`)
         value: true
-    comment: '0323222300'
