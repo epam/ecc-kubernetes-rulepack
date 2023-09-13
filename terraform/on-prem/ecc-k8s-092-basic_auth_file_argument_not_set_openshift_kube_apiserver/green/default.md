@@ -1,0 +1,1 @@
+When deploying the infrastructure using the CRC with OpenShift version 4.13.3, it has Green infrastructure by default. 
