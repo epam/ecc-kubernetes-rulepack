@@ -3,8 +3,8 @@ red ecc-k8s-045-etcd_cluster_peer_auto_tls_argument_is_not_set_to_true 2
 red ecc-k8s-048-minimize_wildcard_use_in_clusterroles 10
 green ecc-k8s-048-minimize_wildcard_use_in_clusterroles 9
 
-red ecc-k8s-049-seccomp_profile_is_set_to_docker_default_in_pod_definitions 6
-green ecc-k8s-049-seccomp_profile_is_set_to_docker_default_in_pod_definitions 5
+red ecc-k8s-049-seccomp_profile_is_set_to_docker_default_in_pod_definitions 2
+green ecc-k8s-049-seccomp_profile_is_set_to_docker_default_in_pod_definitions 1
 
 green ecc-k8s-051-default_namespace_should_not_be_used_for_configmap 1
 red ecc-k8s-051-default_namespace_should_not_be_used_for_configmap 2
@@ -42,17 +42,17 @@ red ecc-k8s-071-minimize_the_admission_of_containers_with_capabilities_assigned 
 green ecc-k8s-072-readonly_filesystem_is_configured 7
 red ecc-k8s-072-readonly_filesystem_is_configured 8
 
-green ecc-k8s-076-cpu_request_is_set 2
-red ecc-k8s-076-cpu_request_is_set 3
+green ecc-k8s-076-cpu_request_is_set 1
+red ecc-k8s-076-cpu_request_is_set 2
 
-green ecc-k8s-078-cpu_limits_are_set 8
-red ecc-k8s-078-cpu_limits_are_set 9
+green ecc-k8s-078-cpu_limits_are_set 1
+red ecc-k8s-078-cpu_limits_are_set 2
 
-green ecc-k8s-079-memory_requests_are_set 5
-red ecc-k8s-079-memory_requests_are_set 6
+green ecc-k8s-079-memory_requests_are_set 1
+red ecc-k8s-079-memory_requests_are_set 2
 
-green ecc-k8s-080-memory_limits_are_set 6
-red ecc-k8s-080-memory_limits_are_set 7
+green ecc-k8s-080-memory_limits_are_set 1
+red ecc-k8s-080-memory_limits_are_set 2
 
 green ecc-k8s-082-limit_use_of_bind_impersonate_escalate_cluster_role 4 
 red ecc-k8s-082-limit_use_of_bind_impersonate_escalate_cluster_role 5

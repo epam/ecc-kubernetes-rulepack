@@ -6,11 +6,16 @@
 
 policies:
   - name: ecc-k8s-049-seccomp_profile_is_set_to_docker_default_in_pod_definitions
-    comment: '000123222300'
+    comment: '000323222300'
     description: |
       The seccomp profile is not set to docker/default in pod definitions
     resource: k8s.pod
     filters:
+      - not:
+        - type: value
+          key: metadata.namespace
+          value: "^(openshift)|(kube).*$"
+          op: regex
       - type: value
         key: spec.security_context.seccomp_profile.type=='RuntimeDefault'
         value: false
