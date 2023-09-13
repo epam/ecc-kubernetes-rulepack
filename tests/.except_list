@@ -1,1 +1,3 @@
 ecc-k8s-061-minimize_the_admission_of_windows_hostprocess_containers
+
+ecc-k8s-092-basic_auth_file_argument_not_set_openshift_kube_apiserver

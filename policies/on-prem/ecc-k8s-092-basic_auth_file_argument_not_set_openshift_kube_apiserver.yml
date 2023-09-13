@@ -1,0 +1,23 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-092-basic_auth_file_argument_not_set_openshift_kube_apiserver
+    comment: '000233192400'
+    description: |
+      The --basic-auth-file argument is not set for openshift-kube-apiserver config
+    resource: k8s.config-map
+    filters:
+      - type: value
+        key: metadata.name
+        value: config
+      - type: value
+        key: metadata.namespace
+        value: openshift-kube-apiserver
+      - type: value
+        key: data."config.yaml"
+        op: regex
+        value: ".*\\\"apiServerArguments\\\":\\{.*\\\"basic-auth-file\\\".*\\}.*"
