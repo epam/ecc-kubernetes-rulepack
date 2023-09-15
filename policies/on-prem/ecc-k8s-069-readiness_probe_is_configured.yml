@@ -6,15 +6,16 @@
 
 policies:
   - name: ecc-k8s-069-readiness_probe_is_configured
-    comment: '000120222000'
+    comment: '000320222000'
     description: |
       Readiness probe is not configured
     resource: k8s.pod
     filters:
-      - type: value
-        key: metadata.namespace
-        op: not-in
-        value: kube-system
+      - not:
+        - type: value
+          key: metadata.namespace
+          value: "^(openshift)|(kube).*$"
+          op: regex
       - or:
           - and:
               - type: value
