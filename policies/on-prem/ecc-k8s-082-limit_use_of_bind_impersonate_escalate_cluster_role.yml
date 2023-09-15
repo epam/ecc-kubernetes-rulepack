@@ -6,7 +6,7 @@
 
 policies:
   - name: ecc-k8s-082-limit_use_of_bind_impersonate_escalate_cluster_role
-    comment: '000133242000'
+    comment: '000333242000'
     description: |
       Kubernetes cluster role has rules with verbs 'bind','impersonate' or 'escalate'
     resource: k8s.cluster-role
