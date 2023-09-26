@@ -35,7 +35,7 @@ jobs:
       - name: Commit CHANGELOG.md
         uses: ./ecc-actions/git-auto-commit-action
         with:
-          branch: main
+          branch: changelog
           commit_message: 'skip: update CHANGELOG.md for ${{ github.ref_name }}'
           file_pattern: CHANGELOG.md
           reverseOrder: true
