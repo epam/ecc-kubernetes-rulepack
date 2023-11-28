@@ -21,3 +21,9 @@ policies:
         key: length(spec.containers[].command[?starts_with(@, '--token-auth-file')][])
         op: gte
         value: 1
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE

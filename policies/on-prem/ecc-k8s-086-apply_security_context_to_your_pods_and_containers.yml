@@ -18,3 +18,9 @@ policies:
           (spec.init_containers[]!=`null` && length(spec.init_containers[?security_context==`null`])>=`1`) ||
           (spec.ephemeral_containers[]!=`null` && length(spec.ephemeral_containers[?security_context==`null`])>=`1`)
         value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE

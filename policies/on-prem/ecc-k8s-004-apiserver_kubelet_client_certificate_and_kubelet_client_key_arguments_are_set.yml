@@ -20,3 +20,9 @@ policies:
       - type: value
         key: length(spec.containers[?command[?starts_with(@, '--kubelet-client-certificate=')]]) == `0` || length(spec.containers[?command[?starts_with(@, '--kubelet-client-key=')]]) == `0`
         value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE

@@ -18,3 +18,9 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'kube-apiserver')][].command[?starts_with(@, '--client-ca-file')][])
             value: 1
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE

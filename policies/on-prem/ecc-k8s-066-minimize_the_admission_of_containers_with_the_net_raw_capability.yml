@@ -24,3 +24,9 @@ policies:
             key: spec.ephemeral_containers[*].security_context.capabilities.add[]
             value: ["NET_RAW", "ALL"]
             op: intersect
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE

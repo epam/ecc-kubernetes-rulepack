@@ -25,3 +25,9 @@ policies:
             op: in
             value_type: swap
             value: "--request-timeout=300s"
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE

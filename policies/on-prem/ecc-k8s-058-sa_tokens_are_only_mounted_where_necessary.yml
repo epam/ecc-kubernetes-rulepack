@@ -15,3 +15,9 @@ policies:
         key: automount_service_account_token
         value: false
         op: ne
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE

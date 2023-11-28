@@ -14,3 +14,9 @@ policies:
       - type: value
         key: contains(['baseline', 'restricted'], metadata.labels."pod-security.kubernetes.io/enforce")
         value: false
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE
