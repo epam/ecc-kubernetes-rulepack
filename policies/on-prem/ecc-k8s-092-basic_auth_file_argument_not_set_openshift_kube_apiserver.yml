@@ -21,9 +21,3 @@ policies:
         key: data."config.yaml"
         op: regex
         value: ".*\\\"apiServerArguments\\\":\\{.*\\\"basic-auth-file\\\".*\\}.*"
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

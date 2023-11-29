@@ -14,9 +14,3 @@ policies:
       - type: value
         key: spec.host_network
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

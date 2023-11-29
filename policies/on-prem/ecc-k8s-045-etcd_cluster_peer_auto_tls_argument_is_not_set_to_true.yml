@@ -20,9 +20,3 @@ policies:
       - type: value
         key: length(spec.containers[?contains(command,'--peer-auto-tls') || contains(command,'--peer-auto-tls=true')])==`1`
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

@@ -18,9 +18,3 @@ policies:
           contains(spec.containers[].command[],'kube-scheduler') &&
           length(spec.containers[?command[?contains(@, '--profiling=false')]])==`0`
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

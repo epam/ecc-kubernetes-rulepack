@@ -18,9 +18,3 @@ policies:
           contains(spec.containers[].command[],'kube-apiserver') &&
           (spec.containers[].command[?starts_with(@, '--authorization-mode=')][] | length([?contains(@, `AlwaysAllow`)])==`1`)
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

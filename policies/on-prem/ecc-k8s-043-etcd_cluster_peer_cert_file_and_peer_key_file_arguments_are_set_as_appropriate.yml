@@ -18,9 +18,3 @@ policies:
           - type: value
             key: length(spec.containers[?contains(values(@), 'etcd')][].command[?(starts_with(@, '--peer-cert-file') || starts_with(@, '--peer-key-file'))][])
             value: 2
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

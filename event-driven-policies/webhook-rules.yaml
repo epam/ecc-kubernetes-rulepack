@@ -26,4 +26,4 @@ webhook:
       resources: ["clusterroles"]
       apiVersions: ["*"]
       operations: [CREATE,UPDATE]
-      scope: Namespaced
+      scope: "Cluster"

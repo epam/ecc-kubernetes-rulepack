@@ -31,9 +31,3 @@ policies:
                 op: in
                 value_type: swap
                 value: "--peer-client-cert-auth"
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

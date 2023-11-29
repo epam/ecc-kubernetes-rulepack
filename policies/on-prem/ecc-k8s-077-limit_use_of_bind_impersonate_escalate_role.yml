@@ -24,9 +24,4 @@ policies:
             key: rules[].verbs[]
             op: contains
             value: "escalate"
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE
+

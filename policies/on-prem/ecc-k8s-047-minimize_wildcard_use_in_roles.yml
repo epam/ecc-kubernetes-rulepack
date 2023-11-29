@@ -18,9 +18,3 @@ policies:
           (rules[?contains(keys(@),'resources') && resources!=`null` && contains(resources, '*')]) || 
           (rules[?contains(keys(@),'verbs') && verbs!=`null` && contains(verbs, '*')])) >`0`
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

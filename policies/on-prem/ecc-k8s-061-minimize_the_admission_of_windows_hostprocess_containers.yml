@@ -18,9 +18,3 @@ policies:
           (spec.init_containers[*].security_context.windows_options.host_process && contains(spec.init_containers[*].security_context.windows_options.host_process,`true`)) ||
           (spec.ephemeral_containers[*].security_context.windows_options.host_process && contains(spec.ephemeral_containers[*].security_context.windows_options.host_process,`true`))
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

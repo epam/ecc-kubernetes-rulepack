@@ -21,9 +21,3 @@ policies:
           (spec.containers!=`null` && length(spec.containers[?resources.limits.cpu==`null`])>=`1`) ||
           (spec.init_containers!=`null` && length(spec.init_containers[?resources.limits.cpu==`null`])>=`1`)
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

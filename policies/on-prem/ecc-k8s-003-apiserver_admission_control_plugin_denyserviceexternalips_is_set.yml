@@ -22,9 +22,3 @@ policies:
           (spec.containers[].command[?starts_with(@, '--disable-admission-plugins=')][]  | length([?contains(@, `DenyServiceExternalIPs`)])==`1`) || 
           (spec.containers[].command[?starts_with(@, '--enable-admission-plugins=')][]  | length([?contains(@, `DenyServiceExternalIPs`)])==`0`)
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

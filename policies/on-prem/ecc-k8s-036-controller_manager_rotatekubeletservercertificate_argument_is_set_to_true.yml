@@ -20,9 +20,3 @@ policies:
       - type: value
         key: (spec.containers[].command[?starts_with(@, '--feature-gates=')][]  | length([?contains(@, `RotateKubeletServerCertificate=false`)])==`1`)
         value: true
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

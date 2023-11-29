@@ -27,9 +27,3 @@ policies:
             value: "ALL"
             value_type: swap
             op: ni
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE

@@ -25,9 +25,3 @@ policies:
             op: in
             value_type: swap
             value: "--terminated-pod-gc-threshold=10"
-    mode:
-      type: k8s-admission
-      on-match: warn
-      operations:
-        - CREATE
-        - UPDATE
