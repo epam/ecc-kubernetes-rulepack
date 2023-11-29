@@ -1,0 +1,24 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-035-controller_manager_root_ca_file_argument_is_set
+    comment: '000130202300'
+    description: The --root-ca-file argument is not set for Controller Manager
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          metadata.namespace=='kube-system' && 
+          metadata.labels.component=='kube-controller-manager' && 
+          contains(spec.containers[].command[],'kube-controller-manager') &&
+          length(spec.containers[?command[?contains(@, '--root-ca-file=')]])==`0`
+        value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE

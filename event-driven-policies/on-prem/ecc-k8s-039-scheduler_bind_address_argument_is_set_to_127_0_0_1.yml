@@ -1,0 +1,28 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-039-scheduler_bind_address_argument_is_set_to_127_0_0_1
+    comment: '000140252300'
+    description: The --bind-address argument is not set to 127.0.0.1 for scheduler
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          metadata.namespace=='kube-system' && 
+          metadata.labels.component=='kube-scheduler' && 
+          contains(spec.containers[].command[],'kube-scheduler')
+        value: true
+      - type: value
+        key: |
+          length(spec.containers[?command[?contains(@, '--bind-address=0.0.0.0')]])==`1` || 
+          length(spec.containers[?command[?starts_with(@, '--bind-address')]]) == `0`
+        value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
