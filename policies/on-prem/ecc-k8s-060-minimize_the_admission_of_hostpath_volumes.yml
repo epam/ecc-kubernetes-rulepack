@@ -12,5 +12,5 @@ policies:
     resource: k8s.pod
     filters:
       - type: value
-        key: length(spec.volumes[?host_path!=null])!=`0`
+        key: spec.volumes && length(spec.volumes[?host_path!=null])!=`0`
         value: true

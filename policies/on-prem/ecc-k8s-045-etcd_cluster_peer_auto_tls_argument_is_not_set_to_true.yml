@@ -18,5 +18,5 @@ policies:
           contains(spec.containers[].command[],'etcd')
         value: true
       - type: value
-        key: length(spec.containers[?contains(command,'--peer-auto-tls') || contains(command,'--peer-auto-tls=true')])==`1`
+        key: spec.containers && length(spec.containers[?contains(command,'--peer-auto-tls') || contains(command,'--peer-auto-tls=true')])==`1`
         value: true

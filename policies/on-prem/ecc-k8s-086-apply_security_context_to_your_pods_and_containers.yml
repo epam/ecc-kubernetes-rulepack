@@ -13,8 +13,10 @@ policies:
     filters:
       - type: value
         key: |
-          (length(spec.security_context.*)==`0`) ||
+          spec && (
+          (spec.security_context && length(spec.security_context.*)==`0`) ||
           (spec.containers[]!=`null` && length(spec.containers[?security_context==`null`])>=`1`) ||
           (spec.init_containers[]!=`null` && length(spec.init_containers[?security_context==`null`])>=`1`) ||
           (spec.ephemeral_containers[]!=`null` && length(spec.ephemeral_containers[?security_context==`null`])>=`1`)
+          )
         value: true
