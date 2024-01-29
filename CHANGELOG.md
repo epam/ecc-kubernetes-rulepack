@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.0] - 2024-01-29
+### :sparkles: New Policies
+- [`f9eda69`](https://github.com/epam/ecc-kubernetes-rulepack/commit/f9eda6960d340e0cfe92e56210e43fd4ee0f0c9a) - added policy ecc-k8s-092-basic_auth_file_argument_not_set_openshift_kube_apiserver
+
+### :wrench: Updates
+- [`9a1b6b0`](https://github.com/epam/ecc-kubernetes-rulepack/commit/9a1b6b072ebc9ed7e92cf73aec7e62e09abbabe4) - updated comment field for all policies
+- [`0366f2c`](https://github.com/epam/ecc-kubernetes-rulepack/commit/0366f2c6685102007cab4c23611edce348c823f5) - updated a number of policies (see the list in the commit message)
+
+### :adhesive_bandage: Policy Fixes
+- [`ef24b35`](https://github.com/epam/ecc-kubernetes-rulepack/commit/ef24b35065157fc15d0345eee202debbb568fcf3) - fixed policies 045, 060, 072, 086
+
+
 ## [v1.1] - 2023-08-23
 ### :wrench: Updates
 - [`2d44613`](https://github.com/epam/ecc-kubernetes-rulepack/commit/2d446130ec23dd59e766ecaa1832635606b1a322) - added index(comment) field to all policies
@@ -23,3 +35,4 @@
 [v1.0]: https://github.com/epam/ecc-kubernetes-rulepack/compare/Init...v1.0
 
 [v1.1]: https://github.com/epam/ecc-kubernetes-rulepack/compare/v1.0...v1.1
+[v2.0]: https://github.com/epam/ecc-kubernetes-rulepack/compare/v1.1...v2.0
