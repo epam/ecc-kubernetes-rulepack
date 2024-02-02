@@ -1,7 +1,17 @@
 # Based on this documentation: https://github.com/kubernetes-sigs/sig-windows-tools/blob/ee59f5de23a54d53a0e21531aab5beedf2bd0058/guides/guide-for-adding-windows-node.md
 
+data "aws_ami" "linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+}
+
 resource "aws_instance" "master" {
-  ami                         = "ami-007855ac798b5175e"
+  ami                         = data.aws_ami.linux.id
   instance_type               = "t2.medium"
   key_name                    = aws_key_pair.this.key_name
   iam_instance_profile        = aws_iam_instance_profile.this.name
@@ -26,8 +36,19 @@ resource "aws_instance" "master" {
   depends_on = [aws_security_group.this]
 }
 
+
+data "aws_ami" "windows" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["Windows_Server-2019-English-Full-Base*"]
+  }
+}
+
 resource "aws_instance" "worker" {
-  ami                         = "ami-0b7dd7b9e977b2b85"
+  ami                         = data.aws_ami.windows.id
   instance_type               = "t2.medium"
   key_name                    = aws_key_pair.this.key_name
   availability_zone           = local.subnet_name
