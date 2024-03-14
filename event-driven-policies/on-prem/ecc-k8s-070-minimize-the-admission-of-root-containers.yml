@@ -1,0 +1,24 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-070-minimize-the-admission-of-root-containers
+    comment: '000123232300'
+    description: Pod with containers is run as the root user
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          (spec.securityContext.runAsUser==`0` || spec.securityContext.runAsNonRoot==`false`) ||
+          (spec.containers != `null` && (length(spec.containers[?securityContext.runAsUser == `0` || securityContext.runAsNonRoot == `false`])>=`1`)) ||
+          (spec.initContainers != `null` && (length(spec.initContainers[?securityContext.runAsUser == `0` || securityContext.runAsNonRoot == `false`])>=`1`)) ||
+          (spec.ephemeralContainers != `null` && (length(spec.ephemeralContainers[?securityContext.runAsUser == `0` || securityContext.runAsNonRoot == `false`])>=`1`))
+        value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE

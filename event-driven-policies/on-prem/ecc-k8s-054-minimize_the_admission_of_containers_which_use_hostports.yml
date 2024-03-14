@@ -1,0 +1,22 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-054-minimize_the_admission_of_containers_which_use_hostports
+    comment: '000120232300'
+    description: A hostPort setting is set for a pod 
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          (spec.initContainers[*].ports[*].hostPort && (spec.initContainers[*].ports[*].[hostPort!=`0` && hostPort!=`null`][][] | contains(@, `true`))) || 
+          (spec.containers[*].ports[*].hostPort && (spec.containers[*].ports[*].[hostPort!=`0` && hostPort!=`null`][][] | contains(@, `true`) ))
+        value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
