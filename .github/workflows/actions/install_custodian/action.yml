@@ -7,7 +7,7 @@ runs:
       command -v git >/dev/null || ( apt-get update -y && apt-get install git -y )
       python3 -m venv custodian
       source custodian/bin/activate
-      pip install c7n  
+      pip install c7n=="$(cat ./version-custodian)"
       pip install c7n_kube
       docker pull kindest/node:v1.25.11 
     shell: bash
