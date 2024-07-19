@@ -63,9 +63,14 @@ echo "$RULE_NAMES" | while IFS=  read -r policy ; do
               sed -i 's/172.18.0.3/172.18.0.4/g' $yaml_file
               sed -i 's/172.18.0.2/172.18.0.3/g' $yaml_file
             done
+            
+            DELAYED_RULE_NAMES=$(cat $root_folder/tests/.except_delay_list)
+            if [[ $DELAYED_RULE_NAMES =~ $policy ]]; 
+            then sleep 5; fi 
+
             kind create cluster --config config.yaml
             cluster_name=`kind get clusters | grep cluster`
-            sleep 2
+            sleep 3
             check_count $policy kind-$cluster_name $infra
             kind delete clusters $cluster_name
             
