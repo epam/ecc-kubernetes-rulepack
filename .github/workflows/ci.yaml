@@ -2,6 +2,12 @@ name: test-custodian-policies
 on:
   push:
   workflow_dispatch:
+    inputs:
+      ECC_ACTIONS_BRANCH:
+        description: 'A branch to use when cloning git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions'
+        default: 'main'
+        required: false
+        type: string
   schedule:
     - cron: "0 7 * * 1"
   pull_request_review:
@@ -36,7 +42,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Checkout ecc-actions
-        run: git clone -b main "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
+        run: git clone -b ${{ inputs.ECC_ACTIONS_BRANCH || 'main' }}  "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
         env:
           PROJECT_TOKEN: ${{ secrets.ECC_CHANGELOG_ACTION }}
 
@@ -56,7 +62,7 @@ jobs:
     if: (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main') && github.event_name != 'schedule'
     steps:
       - name: Checkout ecc-actions
-        run: git clone -b main "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
+        run: git clone -b ${{ inputs.ECC_ACTIONS_BRANCH || 'main' }}  "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
         env:
           PROJECT_TOKEN: ${{ secrets.ECC_CHANGELOG_ACTION }}
       - name: Release ruleset on QA
