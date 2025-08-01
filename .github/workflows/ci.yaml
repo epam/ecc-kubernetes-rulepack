@@ -3,6 +3,11 @@ on:
   push:
   workflow_dispatch:
     inputs:
+      ECC_BRANCH:
+        description: 'A branch to use when cloning https://github.com/epam/syndicate-rule-engine'
+        default: 'develop'
+        required: false
+        type: string
       ECC_ACTIONS_BRANCH:
         description: 'A branch to use when cloning git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions'
         default: 'main'
@@ -31,7 +36,7 @@ jobs:
         shell: bash
         run: ./.github/workflows/scripts/test_policies.sh $COMPLIANCE
 
-  build:
+  github_release:
     name: Create Release
     runs-on: ubuntu-latest
     needs: [test_policy_flights]
@@ -55,14 +60,14 @@ jobs:
           token: ${{ github.token }}
           tag: ${{ github.ref_name }}
 
-  ruleset_release:
-    name: ruleset_release
+  ruleset_release_qa:
+    name: ruleset_release_qa
     runs-on: ubuntu-latest
     needs: [test_policy_flights]
     if: (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main') && github.event_name != 'schedule'
     steps:
       - name: Checkout ecc-actions
-        run: git clone -b ${{ inputs.ECC_ACTIONS_BRANCH || 'main' }}  "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
+        run: git clone -b ${{ inputs.ECC_ACTIONS_BRANCH || 'main' }} "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
         env:
           PROJECT_TOKEN: ${{ secrets.ECC_CHANGELOG_ACTION }}
       - name: Release ruleset on QA
@@ -71,9 +76,25 @@ jobs:
         env:
           C7N_CREDS: ${{ secrets.C7N_CREDS }}
           C7N_ENV: QA
+        with:
+          ecc_branch: ${{ inputs.ECC_BRANCH || 'develop' }}
+
+
+  ruleset_release_prod:
+    name: ruleset_release_prod
+    runs-on: ubuntu-latest
+    needs: [test_policy_flights, github_release]
+    if: (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main') && github.event_name != 'schedule'
+    steps:
+      - name: Checkout ecc-actions
+        run: git clone -b ${{ inputs.ECC_ACTIONS_BRANCH || 'main' }} "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
+        env:
+          PROJECT_TOKEN: ${{ secrets.ECC_CHANGELOG_ACTION }}
       - name: Release ruleset on PROD
         uses: ./ecc-actions/release-ruleset-action
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           C7N_CREDS: ${{ secrets.C7N_CREDS }}
           C7N_ENV: PROD
+        with:
+          ecc_branch: ${{ inputs.ECC_BRANCH || 'develop' }}
