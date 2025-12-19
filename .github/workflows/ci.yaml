@@ -71,6 +71,9 @@ jobs:
         run: git clone -b ${{ inputs.ECC_ACTIONS_BRANCH || 'main' }} "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
         env:
           PROJECT_TOKEN: ${{ secrets.ECC_CHANGELOG_ACTION }}
+      - name: Extract version from file
+        id: version_qa
+        run: echo "VERSION=$(head -n 1 version | sed 's/^v//')" >> $GITHUB_OUTPUT
       - name: Release ruleset on QA
         uses: ./ecc-actions/release-ruleset-action
         if: github.ref == 'refs/heads/main'
@@ -79,6 +82,7 @@ jobs:
           C7N_ENV: QA
         with:
           ecc_branch: ${{ inputs.ECC_BRANCH || 'develop' }}
+          tag: ${{ steps.version.outputs.VERSION }}
 
 
   ruleset_release_prod:
@@ -91,6 +95,9 @@ jobs:
         run: git clone -b ${{ inputs.ECC_ACTIONS_BRANCH || 'main' }} "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
         env:
           PROJECT_TOKEN: ${{ secrets.ECC_CHANGELOG_ACTION }}
+      - name: Extract version
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
       - name: Release ruleset on PROD
         uses: ./ecc-actions/release-ruleset-action
         if: startsWith(github.ref, 'refs/tags/v')
@@ -99,3 +106,4 @@ jobs:
           C7N_ENV: PROD
         with:
           ecc_branch: ${{ inputs.ECC_BRANCH || 'develop' }}
+          tag: ${{ steps.version.outputs.VERSION }}
