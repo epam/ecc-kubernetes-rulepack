@@ -1,0 +1,29 @@
+webhook:
+  rules:
+    - apiGroups: [""]
+      apiVersions: ["*"]
+      operations: [CREATE,UPDATE]
+      resources: [pods,secrets,configmaps,serviceaccounts]
+      scope: Namespaced
+    - apiGroups: [""]
+      apiVersions: ["*"]
+      operations: [CREATE,UPDATE]
+      resources: [namespaces]
+      scope: Cluster
+
+    - apiGroups: ["apps"]
+      resources: ["deployments"]
+      apiVersions: ["*"]
+      operations: [CREATE,UPDATE]
+      scope: Namespaced
+      
+    - apiGroups: ["rbac.authorization.k8s.io"]
+      resources: ["roles"]
+      apiVersions: ["*"]
+      operations: [CREATE,UPDATE]
+      scope: Namespaced
+    - apiGroups: ["rbac.authorization.k8s.io"]
+      resources: ["clusterroles"]
+      apiVersions: ["*"]
+      operations: [CREATE,UPDATE]
+      scope: "Cluster"
