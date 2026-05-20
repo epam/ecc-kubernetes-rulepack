@@ -1,0 +1,14 @@
+policies:
+  - name: cluster-role-bindings-with-wildcard-resources
+    description: |
+       (5.1.3)
+    resource: k8s.cluster-role-binding
+    filters:
+      - type: role-ref
+        key: contains(keys(@),'rules') && rules!=`null` && 
+             length(rules[?resources && (
+             (resources != null && contains(resources, '*')) || 
+             (verbs != null && contains(verbs, '*')) || 
+             (api_groups != null && contains(api_groups, '*'))
+             )])>`0`
+        value: true
