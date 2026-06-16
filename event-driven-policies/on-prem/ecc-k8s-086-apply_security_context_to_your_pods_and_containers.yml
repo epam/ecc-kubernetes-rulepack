@@ -1,0 +1,24 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-086-apply_security_context_to_your_pods_and_containers
+    comment: '000123222300'
+    description: The securityContext is not applied to pods and containers
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          (spec.securityContext!=`null` && length(spec.securityContext.*)==`0`) ||
+          (spec.containers[]!=`null` && length(spec.containers[?securityContext==`null`])>=`1`) ||
+          (spec.initContainers[]!=`null` && length(spec.initContainers[?securityContext==`null`])>=`1`) ||
+          (spec.ephemeralContainers[]!=`null` && length(spec.ephemeralContainers[?securityContext==`null`])>=`1`)
+        value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE

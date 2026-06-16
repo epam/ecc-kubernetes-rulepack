@@ -1,0 +1,20 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-051-default_namespace_should_not_be_used_for_configmap
+    comment: '000323222300'
+    description: The default namespace is used for ConfigMap
+    resource: k8s.config-map
+    filters:
+      - type: value
+        key: metadata.namespace
+        value: default
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE

@@ -1,0 +1,30 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-072-readonly_filesystem_is_configured
+    comment: '000123232000'
+    description: Containers filesystem is not read-only
+    resource: k8s.pod
+    filters:
+      - or:
+          - type: value
+            key: length(spec.containers[?securityContext.readOnlyRootFilesystem != `true`])
+            value: 0
+            op: gt
+          - type: value
+            key: spec.initContainers && length(spec.initContainers[?securityContext.readOnlyRootFilesystem != `true`])
+            value: 0
+            op: gt
+          - type: value
+            key: spec.ephemeralContainers && length(spec.ephemeralContainers[?securityContext.readOnlyRootFilesystem != `true`])
+            value: 0
+            op: gt
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
