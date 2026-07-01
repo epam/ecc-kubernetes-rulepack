@@ -1,0 +1,27 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: cluster_admin_role_is_only_used_where_required_in_cluster_role_bindings
+    comment: ''
+    description: |
+      cluster-admin role is not used only where required in role bindings (5.1.1)
+    resource: k8s.role-binding
+    filters:
+      - type: value
+        key: role_ref.name
+        op: eq
+        value: cluster-admin
+      - type: value
+        key: role_ref.kind
+        op: eq
+        value: ClusterRole
+      - type: value
+        key: length(subjects[?!(kind=='Group' && name=='system:masters')])
+        op: gt
+        value: 0
+
+
