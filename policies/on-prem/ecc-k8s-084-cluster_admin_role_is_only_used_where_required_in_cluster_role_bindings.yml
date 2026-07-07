@@ -6,7 +6,7 @@
 
 policies:
   - name: ecc-k8s-084-cluster_admin_role_is_only_used_where_required_in_cluster_role_bindings
-    comment: ''
+    comment: '000333242000'
     description: |
       cluster-admin role is not used only where required in cluster role bindings  (5.1.1)
     resource: k8s.cluster-role-binding
