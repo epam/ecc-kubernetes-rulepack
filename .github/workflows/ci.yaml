@@ -33,6 +33,8 @@ jobs:
     steps: 
       - uses: actions/checkout@v4
       - uses: ./.github/workflows/actions/install_custodian
+        with:
+          ecc_branch: ${{ inputs.ECC_BRANCH || 'develop' }}
       - name: test_policy_flights
         shell: bash
         run: ./.github/workflows/scripts/test_policies.sh $COMPLIANCE

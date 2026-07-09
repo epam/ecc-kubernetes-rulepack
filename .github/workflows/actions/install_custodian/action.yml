@@ -1,5 +1,10 @@
 name: "Installing cloud-custodian"
 description: "Installing cloud-custodian"
+inputs:
+  ecc_branch:
+    description: 'A branch to use when cloning https://github.com/epam/syndicate-rule-engine'
+    default: 'develop'
+    required: false
 runs:
   using: "composite"
   steps: 
@@ -9,5 +14,48 @@ runs:
       source custodian/bin/activate
       pip install c7n=="$(cat ./version-custodian)"
       pip install c7n_kube
-      docker pull kindest/node:v1.25.11 
+      docker pull kindest/node:v1.25.11
+
+      # Some k8s resources (e.g. cluster-role-binding, role-binding) used by
+      # policies here aren't part of the released c7n_kube package yet, but
+      # already exist as a plugin in Syndicate Rule Engine's executor. Pull
+      # that plugin in and wire it into c7n's cli the same way
+      # ecc-actions/flight-test-dependencies does it for aws/gcp/azure.
+      git clone https://github.com/epam/syndicate-rule-engine.git --branch ${{ inputs.ecc_branch }} --depth 1
+
+      SITE_PACKAGES=$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")
+      mkdir -p "$SITE_PACKAGES/plugins"
+      touch "$SITE_PACKAGES/plugins/__init__.py"
+      shopt -s nullglob
+      for plugin in syndicate-rule-engine/src/executor/plugins/k8s*; do
+        [ -d "$plugin" ] || continue
+        cp -r "$plugin" "$SITE_PACKAGES/plugins/"
+        echo "Installed k8s plugin: $(basename "$plugin")"
+      done
+      shopt -u nullglob
+      rm -rf syndicate-rule-engine
+
+      CLI_PATH="$SITE_PACKAGES/c7n/cli.py"
+      sed -i '/^log = logging.getLogger('"'"'custodian.cli'"'"')$/a\\n\
+      def register_all_plugins(module_name: str) -> None:\n\
+          """\n\
+          Accept the name of an immediate module containing folders with plugins\n\
+          """\n\
+          from c7n.resources import load_available\n\
+          from importlib import import_module\n\
+          import pkgutil\n\
+          load_available(True)\n\
+      \n\
+          parent = import_module(module_name)\n\
+      \n\
+          for info in pkgutil.iter_modules(parent.__path__):\n\
+              mod = import_module(f'"'"'{parent.__name__}.{info.name}'"'"')\n\
+              if not hasattr(mod, '"'"'register'"'"') or not callable(mod.register):\n\
+                  continue\n\
+              mod.register()\n\
+      \n\
+          load_available(True)\n' "$CLI_PATH"
+
+      sed -i '/^def main(args=None):$/a\
+          register_all_plugins('"'"'plugins'"'"')' "$CLI_PATH"
     shell: bash
