@@ -2,7 +2,7 @@ resource "kubernetes_role_binding_v1" "this" {
   metadata {
     name = "rb-cluster-admin-red-2"
     labels = {
-      CustodianRule    = "cluster_admin_role_is_only_used_where_required_in_cluster_role_bindings"
+      CustodianRule    = "cluster_admin_role_only_used_where_required_rb"
       ComplianceStatus = "Red"
     }
   }
