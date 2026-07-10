@@ -1,0 +1,22 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-083-minimize_access_to_create_pods
+    comment: '000333242000'
+    description: |
+      Kubernetes role has create access to pod objects (5.1.4)
+    resource: k8s.role
+    filters:
+      - type: value
+        key: |
+          contains(keys(@),'rules') && rules!=`null` &&
+          length(rules[?
+            (contains(keys(@),'api_groups') && api_groups!=`null` && (contains(api_groups, '') || contains(api_groups, '*'))) &&
+            (contains(keys(@),'resources') && resources!=`null` && (contains(resources, 'pods') || contains(resources, '*'))) &&
+            (contains(keys(@),'verbs') && verbs!=`null` && (contains(verbs, 'create') || contains(verbs, '*')))
+          ]) > `0`
+        value: true
