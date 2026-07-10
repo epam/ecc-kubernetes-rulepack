@@ -1,5 +1,8 @@
 red ecc-k8s-045-etcd_cluster_peer_auto_tls_argument_is_not_set_to_true 2
 
+green cluster-role-bindings-with-wildcard-resources 8
+red cluster-role-bindings-with-wildcard-resources 9
+
 red ecc-k8s-048-minimize_wildcard_use_in_clusterroles 10
 green ecc-k8s-048-minimize_wildcard_use_in_clusterroles 9
 
