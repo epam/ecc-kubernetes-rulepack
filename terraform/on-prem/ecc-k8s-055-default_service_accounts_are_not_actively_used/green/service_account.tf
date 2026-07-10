@@ -1,3 +1,23 @@
+locals {
+  system_namespaces = [
+    "default",
+    "kube-system",
+    "kube-public",
+    "kube-node-lease",
+    "local-path-storage",
+  ]
+}
+
+resource "kubernetes_default_service_account_v1" "system" {
+  for_each = toset(local.system_namespaces)
+
+  metadata {
+    namespace = each.value
+  }
+
+  automount_service_account_token = false
+}
+
 resource "kubernetes_namespace_v1" "this" {
   metadata {
     labels = {
@@ -12,5 +32,6 @@ resource "kubernetes_default_service_account_v1" "this" {
   metadata {
     namespace = kubernetes_namespace_v1.this.metadata[0].name
   }
+
   automount_service_account_token = false
 }
