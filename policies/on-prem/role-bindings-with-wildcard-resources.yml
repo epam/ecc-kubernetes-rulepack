@@ -12,11 +12,13 @@ policies:
     resource: k8s.role-binding
     filters:
       - type: role-ref
-        key: contains(keys(@),'rules') && rules!=`null` && 
-             length(rules[?resources && (
-             (resources != null && contains(resources, '*')) || 
-             (verbs != null && contains(verbs, '*')) || 
-             (api_groups != null && contains(api_groups, '*'))
-             )])>`0`
+        key: |
+          contains(keys(@),'rules') &&  rules!=`null` &&
+          length(
+          (rules[?contains(keys(@),'api_groups') && api_groups!=`null` && contains(api_groups, '*')]) || 
+          (rules[?contains(keys(@),'resources') && resources!=`null` && contains(resources, '*')]) || 
+          (rules[?contains(keys(@),'verbs') && verbs!=`null` && contains(verbs, '*')]) ||
+          (rules[?contains(keys(@),'non_resource_urls') && non_resource_urls != `null` && length(non_resource_urls[?contains(@, '/*')]) > `0`])
+          ) >`0`
         value: true
 
