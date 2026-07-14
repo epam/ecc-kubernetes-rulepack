@@ -31,7 +31,13 @@ jobs:
     if: github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
     steps: 
       - uses: actions/checkout@v6
-      - uses: ./.github/workflows/actions/install_custodian
+      - name: Checkout ecc-actions
+        run: git clone -b ${{ inputs.ECC_ACTIONS_BRANCH || 'main' }}  "https://git:$PROJECT_TOKEN@git.epam.com/epmc-sec/cloudlab/cloud_custodian/ecc-actions.git" ecc-actions
+        env:
+          PROJECT_TOKEN: ${{ secrets.ECC_CHANGELOG_ACTION }}
+      - uses: ./ecc-actions/flight-test-dependencies
+        with:
+          ecc_branch: ${{ inputs.ECC_BRANCH || 'develop' }}
       - name: test_policy_flights
         shell: bash
         run: ./.github/workflows/scripts/test_policies.sh $COMPLIANCE
