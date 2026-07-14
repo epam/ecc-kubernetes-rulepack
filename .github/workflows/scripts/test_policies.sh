@@ -9,6 +9,11 @@ if [[ "$COMPLIANCE" != "red" && "$COMPLIANCE" != "green" ]]; then
     exit 1
 fi
 
+extract_policy_resource_count() {
+    # Match custodian.policy summary lines only; ignore stderr noise (e.g. google FutureWarning paths containing "cloud-custodian").
+    echo "$1" | grep 'custodian.policy:INFO' | grep -oE 'count:[0-9]+' | tail -1 | cut -d: -f2
+}
+
 check_count() { 
     cd $root_folder
 
@@ -18,9 +23,17 @@ check_count() {
         resources_count=$([ "$COMPLIANCE" == "red" ] && echo "1" || echo "0")
     fi
     kubectl config use-context $2
-    custodian run --cache-period=0 -s output policies/on-prem/$1.yml
-    returned_resources_count="$(custodian run --cache-period=0 -s output policies/on-prem/$1.yml 2>&1 | grep 'custodian' | cut -d ' '  -f 7 | cut -d ":" -f 2)"
+    custodian_output="$(custodian run --cache-period=0 -s output policies/on-prem/$1.yml 2>&1)"
+    returned_resources_count="$(extract_policy_resource_count "$custodian_output")"
     echo "RETURNED: $returned_resources_count / $resources_count"
+
+    if [ -z "$returned_resources_count" ]; then
+        echo "ERROR: failed to parse resource count from custodian output for policy $1"
+        echo "$custodian_output"
+        echo "$3 $policy" >> .${COMPLIANCE}_failed
+        cd terraform/on-prem/$policy/$3
+        return
+    fi
 
     if [ "$returned_resources_count" = "$resources_count" ]; then
         echo "$3 $policy" >> .${COMPLIANCE}_passed
@@ -31,7 +44,7 @@ check_count() {
     cd terraform/on-prem/$policy/$3
 }
 
-source custodian/bin/activate
+source cloud-custodian/.venv/bin/activate
 kind create cluster --image kindest/node:v1.25.11 --name default
 
 RULE_NAMES=$(find ./terraform/on-prem -maxdepth 1 -type d | tail -n +2 | awk -F '/' '{ print $NF }' | sort)
