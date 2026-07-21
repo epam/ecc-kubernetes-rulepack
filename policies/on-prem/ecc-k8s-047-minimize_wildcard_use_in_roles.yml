@@ -8,13 +8,16 @@ policies:
   - name: ecc-k8s-047-minimize_wildcard_use_in_roles
     comment: '000333242300'
     description: |
-      Role uses wildcard "*" which matches all items
-    resource: k8s.role
+      RoleBinding references a Role or ClusterRole that uses wildcard "*" which matches all items
+    resource: k8s.role-binding
     filters:
-      - type: value
+      - type: role-ref
         key: |
           contains(keys(@),'rules') &&  rules!=`null` &&
-          length((rules[?contains(keys(@),'api_groups') && api_groups!=`null` && contains(api_groups, '*')]) || 
+          length(
+          (rules[?contains(keys(@),'api_groups') && api_groups!=`null` && contains(api_groups, '*')]) || 
           (rules[?contains(keys(@),'resources') && resources!=`null` && contains(resources, '*')]) || 
-          (rules[?contains(keys(@),'verbs') && verbs!=`null` && contains(verbs, '*')])) >`0`
+          (rules[?contains(keys(@),'verbs') && verbs!=`null` && contains(verbs, '*')]) ||
+          (rules[?contains(keys(@),'non_resource_urls') && non_resource_urls != `null` && length(non_resource_urls[?contains(@, '/*')]) > `0`])
+          ) >`0`
         value: true
