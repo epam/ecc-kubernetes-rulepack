@@ -4,5 +4,5 @@ metadata:
   name: custodian-role
 rules:
 - apiGroups: ["rbac.authorization.k8s.io"]
-  resources: ["rolebindings", "clusterroles", "roles"]
+  resources: ["rolebindings"]
   verbs: ["list"]
