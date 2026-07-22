@@ -8,7 +8,7 @@ rules:
   verbs: ["list"]
 
 - apiGroups: ["rbac.authorization.k8s.io"]
-  resources: ["roles","clusterroles","rolebindings"]
+  resources: ["roles","clusterroles","rolebindings","clusterrolebindings"]
   verbs: ["list"]
 
 - apiGroups: ["apps"]
