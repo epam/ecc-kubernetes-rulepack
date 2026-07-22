@@ -63,6 +63,6 @@ red ecc-k8s-086-apply_security_context_to_your_pods_and_containers 10
 green ecc-k8s-087-minimize_access_to_secrets_in_roles 2
 red ecc-k8s-087-minimize_access_to_secrets_in_roles 3
 
-green ecc-k8s-088-minimize_access_to_secrets_in_clusterroles 11
-red ecc-k8s-088-minimize_access_to_secrets_in_clusterroles 12
+green ecc-k8s-088-minimize_access_to_secrets_in_clusterroles 8
+red ecc-k8s-088-minimize_access_to_secrets_in_clusterroles 9
 
