@@ -23,7 +23,8 @@ check_count() {
         resources_count=$([ "$COMPLIANCE" == "red" ] && echo "1" || echo "0")
     fi
     kubectl config use-context $2
-    custodian_output="$(custodian run --cache-period=0 -s output policies/on-prem/$1.yml 2>&1)"
+    # Custodian exits non-zero on policy errors; capture output without aborting (set -e).
+    custodian_output="$(custodian run --cache-period=0 -s output policies/on-prem/$1.yml 2>&1 || true)"
     returned_resources_count="$(extract_policy_resource_count "$custodian_output")"
     echo "RETURNED: $returned_resources_count / $resources_count"
 
