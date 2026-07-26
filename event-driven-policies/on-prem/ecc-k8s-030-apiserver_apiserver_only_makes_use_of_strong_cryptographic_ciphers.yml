@@ -1,0 +1,28 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-030-apiserver_apiserver_only_makes_use_of_strong_cryptographic_ciphers
+    comment: '000123192300'
+    description: API server not using strong cryptographic ciphers
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: metadata.labels.component
+        value: kube-apiserver
+      - type: value
+        key: spec.containers[].command[]
+        op: in
+        value_type: swap
+        value: "kube-apiserver"
+      - type: value
+        key: spec.containers[].command[?starts_with(@, '--tls-cipher-suites=')][] | length([?contains(@, 'TLS_AES_128_GCM_SHA256') && contains(@, 'TLS_AES_256_GCM_SHA384') && contains(@, 'TLS_CHACHA20_POLY1305_SHA256') && contains(@, 'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA') && contains(@, 'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256') && contains(@, 'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA') && contains(@, 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384') && contains(@, 'TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305') && contains(@, 'TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256') && contains(@, 'TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA') && contains(@, 'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA') && contains(@, 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256') && contains(@, 'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA') && contains(@, 'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384') && contains(@, 'TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305') && contains(@, 'TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256') && contains(@, 'TLS_RSA_WITH_3DES_EDE_CBC_SHA') && contains(@, 'TLS_RSA_WITH_AES_128_CBC_SHA') && contains(@, 'TLS_RSA_WITH_AES_128_GCM_SHA256') && contains(@, 'TLS_RSA_WITH_AES_256_CBC_SHA') && contains(@, 'TLS_RSA_WITH_AES_256_GCM_SHA384')])==`1`
+        value: false
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE

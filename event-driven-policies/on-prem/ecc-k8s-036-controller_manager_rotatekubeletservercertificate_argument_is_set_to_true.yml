@@ -1,0 +1,26 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-036-controller_manager_rotatekubeletservercertificate_argument_is_set_to_true
+    comment: '000129202300'
+    description: The RotateKubeletServerCertificate argument is not set to true
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          metadata.namespace=='kube-system' && 
+          metadata.labels.component=='kube-controller-manager' && 
+          contains(spec.containers[].command[],'kube-controller-manager')
+        value: true
+      - type: value
+        key: (spec.containers[].command[?starts_with(@, '--feature-gates=')][]  | length([?contains(@, `RotateKubeletServerCertificate=false`)])==`1`)
+        value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
