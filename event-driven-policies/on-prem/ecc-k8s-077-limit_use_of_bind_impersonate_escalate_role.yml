@@ -1,0 +1,31 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-077-limit_use_of_bind_impersonate_escalate_role
+    comment: '000333242000'
+    description: Kubernetes role has role.rules with verbs 'bind','impersonate' or 'escalate'
+    resource: k8s.role
+    filters:
+      - or:
+          - type: value
+            key: rules[].verbs[]
+            op: contains
+            value: "bind"
+          - type: value
+            key: rules[].verbs[]
+            op: contains
+            value: "impersonate"
+          - type: value
+            key: rules[].verbs[]
+            op: contains
+            value: "escalate"
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
+        - UPDATE

@@ -1,0 +1,24 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-017-apiserver_audit_log_path_argument_is_set
+    comment: '000119192300'
+    description: The --audit-log-path argument is not set
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          metadata.namespace=='kube-system' && 
+          metadata.labels.component=='kube-apiserver' && 
+          contains(spec.containers[].command[],'kube-apiserver') &&
+          (spec.containers[].command[?starts_with(@, '--audit-log-path=')][] | length(@)==`0`)
+        value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE

@@ -1,0 +1,24 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-061-minimize_the_admission_of_windows_hostprocess_containers
+    comment: '000123232300'
+    description: Windows containers run with the hostProcess flag set to true
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: |
+          spec.securityContext.windowsOptions.hostProcess == `true`||
+          (spec.containers[*].securityContext.windowsOptions.hostProcess && contains(spec.containers[*].securityContext.windowsOptions.hostProcess,`true`)) ||
+          (spec.initContainers[*].securityContext.windowsOptions.hostProcess && contains(spec.initContainers[*].securityContext.windowsOptions.hostProcess,`true`)) ||
+          (spec.ephemeralContainers[*].securityContext.windowsOptions.hostProcess && contains(spec.ephemeralContainers[*].securityContext.windowsOptions.hostProcess,`true`))
+        value: true
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE

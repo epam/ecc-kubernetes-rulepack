@@ -1,0 +1,37 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-068-liveness_probe_is_configured
+    comment: '000320222000'
+    description: Liveness probe is not configured
+    resource: k8s.pod
+    filters:
+      - not:
+        - type: value
+          key: metadata.namespace
+          value: "^(openshift)|(kube).*$"
+          op: regex
+      - or:
+          - and:
+              - type: value
+                key: spec.containers[].livenessProbe
+                value: present
+              - type: value
+                key: spec.containers[].livenessProbe
+                value: empty
+          - and:
+              - type: value
+                key: spec.initContainers[].livenessProbe
+                value: present
+              - type: value
+                key: spec.initContainers[].livenessProbe
+                value: empty
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE

@@ -1,0 +1,28 @@
+# Copyright (c) 2023 EPAM Systems, Inc.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+policies:
+  - name: ecc-k8s-008-apiserver_authorization_mode_argument_includes_rbac
+    comment: '000133192300'
+    description: Authorization mode argument do not includes RBAC
+    resource: k8s.pod
+    filters:
+      - type: value
+        key: metadata.labels.component
+        value: kube-apiserver
+      - type: value
+        key: spec.containers[].command[]
+        op: in
+        value_type: swap
+        value: "kube-apiserver"
+      - type: value
+        key: spec.containers[].command[?starts_with(@, '--authorization-mode=')][] | length([?contains(@, `RBAC`)])==`1`
+        value: false
+    mode:
+      type: k8s-admission
+      on-match: warn
+      operations:
+        - CREATE
